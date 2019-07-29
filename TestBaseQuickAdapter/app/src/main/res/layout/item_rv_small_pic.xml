@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentView="@id/cl_content_container"
+    app:leftMenuView="@id/tv_left"
+    app:rightMenuView="@id/ll_right_container">
+
+    <TextView
+        android:id="@+id/tv_left"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:background="#FFFF0000"
+        android:gravity="center"
+        android:text="左边"
+        android:textColor="#FFFFFFFF"
+        tools:ignore="HardcodedText" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_small_pic"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dp_10"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_right_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_right1"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="#FFFF0000"
+            android:gravity="center"
+            android:text="右边1"
+            android:textColor="#FFFFFFFF" />
+
+        <TextView
+            android:id="@+id/tv_right2"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF00"
+            android:gravity="center"
+            android:text="右边2"
+            android:textColor="#FFFF0000" />
+    </LinearLayout>
+</com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout>
