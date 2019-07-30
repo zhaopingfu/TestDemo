@@ -17,5 +17,6 @@ class SecondActivity : BaseActivity() {
         btn_show_info.setOnClickListener {
             startActivity(Intent(this@SecondActivity, ThirdActivity::class.java))
         }
+        // 本地修改了2
     }
 }
