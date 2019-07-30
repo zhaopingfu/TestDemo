@@ -6,8 +6,9 @@
     tools:context=".activitys.ThirdActivity">
 
     <Button
+        android:id="@+id/btn_jump_to_metaapp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="third activity"
+        android:text="跳转到metaApp"
         android:textAllCaps="false" />
 </android.support.constraint.ConstraintLayout>
