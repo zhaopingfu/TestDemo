@@ -17,6 +17,5 @@ class ThirdActivity : BaseActivity() {
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
-        // 本地修改了3
     }
 }
