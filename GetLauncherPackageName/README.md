@@ -2,8 +2,10 @@
 
 * 获取手机中所有的 `launcher` 的包名
 
-* 获取页面的跳转来源，是从哪里跳转过来的
+* 获取页面的跳转来源，是从哪里跳转过来的(这个现在还没办法获取到。。)
 
+* 判断是否是从桌面拉起来的
+    
     目前发现 `registerActivityLifecycleCallbacks` 方式还可以，但不知道有没有更好的方式
     
     `registerActivityLifecycleCallbacks` 里面的生命周期方法会优先执行, 而 `activity` 里面的生命周期方法会在后面执行
