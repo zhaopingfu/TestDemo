@@ -3,7 +3,6 @@ package com.zhaopf.getlauncherpackagename
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.util.Log
 
 /**
  *
@@ -12,36 +11,49 @@ import android.util.Log
  */
 class MApplication : Application() {
 
-    private var count = 0
+    companion object {
 
-    private val TAG = "MApplication"
+        /**
+         * 记录当前显示的页面的个数
+         */
+        var currVisibleActivityCount = 0
+
+        /**
+         * 是否是从桌面拉起的
+         */
+        var isFromDeskop = false
+    }
 
     override fun onCreate() {
         super.onCreate()
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
-            override fun onActivityPaused(activity: Activity?) {
+
+            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+                // Log.d(TAG, "---> onActivityCreated")
+            }
+
+            override fun onActivityStarted(activity: Activity?) {
+                isFromDeskop = currVisibleActivityCount == 0
+                // Log.d(TAG, "---> onActivityStarted  ${if (count == 0) "是" else "不是"}从桌面拉起的  count: $count")
+                currVisibleActivityCount++
+                // Log.d(TAG, "---> onActivityStarted count: $count")
             }
 
             override fun onActivityResumed(activity: Activity?) {
             }
 
-            override fun onActivityStarted(activity: Activity?) {
-                count++
-                Log.d(TAG, "---> onActivityStarted count: $count")
+            override fun onActivityPaused(activity: Activity?) {
+            }
+
+            override fun onActivityStopped(activity: Activity?) {
+                currVisibleActivityCount--
+                // Log.d(TAG, "---> onActivityStopped count: $count")
             }
 
             override fun onActivityDestroyed(activity: Activity?) {
             }
 
             override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
-            }
-
-            override fun onActivityStopped(activity: Activity?) {
-                count--
-                Log.d(TAG, "---> onActivityStopped count: $count")
-            }
-
-            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
             }
         })
     }
