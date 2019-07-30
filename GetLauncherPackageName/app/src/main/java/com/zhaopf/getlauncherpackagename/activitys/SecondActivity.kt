@@ -17,5 +17,6 @@ class SecondActivity : BaseActivity() {
         btn_show_info.setOnClickListener {
             startActivity(Intent(this@SecondActivity, ThirdActivity::class.java))
         }
+        // test git modify 2
     }
 }
