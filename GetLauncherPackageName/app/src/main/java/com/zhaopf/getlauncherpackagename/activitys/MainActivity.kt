@@ -14,6 +14,6 @@ class MainActivity : BaseActivity() {
         btn_jump_to_second.setOnClickListener {
             startActivity(Intent(this@MainActivity, SecondActivity::class.java))
         }
-        // modify 11111
+        // modify 1
     }
 }
