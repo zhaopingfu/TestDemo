@@ -1,6 +1,7 @@
-package com.zhaopf.getlauncherpackagename
+package com.zhaopf.getlauncherpackagename.activitys
 
 import android.os.Bundle
+import com.zhaopf.getlauncherpackagename.R
 
 class ThirdActivity : BaseActivity() {
 

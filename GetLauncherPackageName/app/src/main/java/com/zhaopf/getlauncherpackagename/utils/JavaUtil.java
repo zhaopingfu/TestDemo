@@ -1,4 +1,4 @@
-package com.zhaopf.getlauncherpackagename;
+package com.zhaopf.getlauncherpackagename.utils;
 
 import android.app.Activity;
 import android.app.Application;

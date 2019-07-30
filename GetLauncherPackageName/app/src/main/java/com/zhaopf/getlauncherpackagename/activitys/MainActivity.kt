@@ -1,7 +1,8 @@
-package com.zhaopf.getlauncherpackagename
+package com.zhaopf.getlauncherpackagename.activitys
 
 import android.content.Intent
 import android.os.Bundle
+import com.zhaopf.getlauncherpackagename.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {

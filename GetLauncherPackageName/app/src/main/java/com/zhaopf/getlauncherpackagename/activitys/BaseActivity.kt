@@ -1,7 +1,8 @@
-package com.zhaopf.getlauncherpackagename
+package com.zhaopf.getlauncherpackagename.activitys
 
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.zhaopf.getlauncherpackagename.MApplication
 
 /**
  *

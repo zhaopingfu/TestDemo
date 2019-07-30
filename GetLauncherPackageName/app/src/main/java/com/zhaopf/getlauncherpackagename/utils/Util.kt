@@ -1,4 +1,4 @@
-package com.zhaopf.getlauncherpackagename
+package com.zhaopf.getlauncherpackagename.utils
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -83,7 +83,8 @@ fun check(context: Context, intent: Intent?) {
     }
 
     // 通过反射拿到当前栈所有的activity
-    val activityList = JavaUtil.getActivitiesByApplication((context as Activity).application)
+    val activityList =
+        JavaUtil.getActivitiesByApplication((context as Activity).application)
     activityList.forEach {
         Log.d(TAG, "---<<<> ${it.packageName}  ${it.componentName.className}")
     }
@@ -97,10 +98,12 @@ fun checkIsFromHomeLauncherApp(context: Context): Boolean {
     val fromTask = activityManager.getRunningTasks(2)
 
     // 通过反射拿到当前栈所有的activity
-    val activityRecordList = JavaUtil.getActivitiesByApplication((context as Activity).application)
+    val activityRecordList =
+        JavaUtil.getActivitiesByApplication((context as Activity).application)
 
     // 获取手机桌面应用的信息
-    val allHomeIntentName = getAllHomeIntentName(context)?.map { it.activityInfo?.packageName ?: "" }
+    val allHomeIntentName = getAllHomeIntentName(context)
+        ?.map { it.activityInfo?.packageName ?: "" }
 
     // 如果只有一个，那么可能是桌面来的
     if (activityRecordList?.size ?: 0 <= 1) {
