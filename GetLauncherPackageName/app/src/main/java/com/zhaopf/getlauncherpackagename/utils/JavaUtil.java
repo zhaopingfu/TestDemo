@@ -11,6 +11,8 @@ import java.util.Map;
 /**
  * @author PingFu.Zhao
  * 2019/7/29
+ * <p>
+ * 用来获取当前栈的所有activity
  */
 public class JavaUtil {
 

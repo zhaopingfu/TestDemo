@@ -17,7 +17,7 @@ import android.util.Log
  */
 
 /**
- * 获取手机上所有 app 的桌面应用的包名和类名
+ * 获取手机上所有 app 的桌面的包名和类名
  */
 fun getAllHomeIntentName(context: Context): List<ResolveInfo>? {
     // 启动页面的 intent 配置
@@ -26,14 +26,21 @@ fun getAllHomeIntentName(context: Context): List<ResolveInfo>? {
         addCategory(Intent.CATEGORY_HOME)
     }
     // 获取手机上所有的桌面应用的包名和类名
-    val result = context.packageManager.queryIntentActivities(intent, 0)
-    result.forEach { resolveInfo ->
-        Log.d(
-            "getAllHomeIntentName",
-            "---> installed package name: ${resolveInfo.activityInfo.packageName}  class name: ${resolveInfo.activityInfo.name}"
-        )
+    return context.packageManager.queryIntentActivities(intent, 0)
+}
+
+/**
+ * 判断是否是从桌面应用跳转过来的
+ */
+fun checkIsFromHomeLauncherApp(activity: Activity): Boolean {
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+        val referrer = activity.referrer ?: return false
+        return getAllHomeIntentName(activity)
+            ?.map { it.activityInfo?.packageName ?: "" }
+            ?.contains(referrer.host ?: "")
+            ?: false
     }
-    return result
+    return false
 }
 
 /**
@@ -88,27 +95,4 @@ fun check(context: Context, intent: Intent?) {
     activityList.forEach {
         Log.d(TAG, "---<<<> ${it.packageName}  ${it.componentName.className}")
     }
-}
-
-/**
- * 判断是否是从桌面应用跳转过来的
- */
-fun checkIsFromHomeLauncherApp(context: Context): Boolean {
-    val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-    val fromTask = activityManager.getRunningTasks(2)
-
-    // 通过反射拿到当前栈所有的activity
-    val activityRecordList =
-        JavaUtil.getActivitiesByApplication((context as Activity).application)
-
-    // 获取手机桌面应用的信息
-    val allHomeIntentName = getAllHomeIntentName(context)
-        ?.map { it.activityInfo?.packageName ?: "" }
-
-    // 如果只有一个，那么可能是桌面来的
-    if (activityRecordList?.size ?: 0 <= 1) {
-        val pkgName = fromTask?.get(1)?.baseActivity?.packageName ?: ""
-        return allHomeIntentName?.contains(pkgName) ?: false
-    }
-    return false
 }
