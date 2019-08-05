@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.aliyun.ams.emas-services'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.meta.sophixdemo"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 2
+        versionName "v1.0.0.1"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
+        externalNativeBuild {
+            ndkBuild {
+                cFlags "-O2"
+                cppFlags "-O2"
+                abiFilters "armeabi-v7a"
+            }
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file('./app.jks')
+            storePassword '123456'
+            keyAlias 'sophixAlias'
+            keyPassword '123456'
+            v1SigningEnabled true
+            v2SigningEnabled false
+        }
+        release {
+            storeFile file('./app.jks')
+            storePassword '123456'
+            keyAlias 'sophixAlias'
+            keyPassword '123456'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    packagingOptions {
+        doNotStrip '*/mips/*.so'
+        doNotStrip '*/mips64/*.so'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // android support
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+
+    // hot fix.
+    implementation 'com.aliyun.ams:alicloud-android-hotfix:3.2.8'
+
+    // test
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

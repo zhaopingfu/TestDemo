@@ -1,0 +1,34 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        // sophix
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
+    }
+    dependencies {
+        // 这里升级上去的话，gradle 版本也要升级。
+        classpath 'com.android.tools.build:gradle:3.1.3'
+        // 添加 emas-services 插件
+        classpath 'com.aliyun.ams:emas-services:1.0.1'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
