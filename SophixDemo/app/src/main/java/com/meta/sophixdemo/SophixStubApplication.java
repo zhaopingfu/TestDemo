@@ -63,7 +63,6 @@ public class SophixStubApplication extends SophixApplication {
                 .setEnableDebug(false)
                 .setEnableFullLog()
                 .setPatchLoadStatusStub((mode, code, info, handlePatchVersion) -> {
-                    Log.d(TAG, "sophix code: " + code + "  info: " + info + "  handlePatchVersion: " + handlePatchVersion);
                     if (code == PatchStatus.CODE_LOAD_SUCCESS) {
                         Log.i(TAG, "sophix load patch success!");
                     } else if (code == PatchStatus.CODE_LOAD_RELAUNCH) {
