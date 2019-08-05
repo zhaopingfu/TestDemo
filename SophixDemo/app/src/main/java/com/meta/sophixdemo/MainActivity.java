@@ -8,18 +8,19 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG      = "MainActivity";
     /**
      * 当前的数据
      */
-    private int    mCurrNum = 0;
+    private              int    mCurrNum = 0;
     /**
      * 按钮
      */
-    private Button mBtnAddOne;
+    private              Button mBtnAddOne;
     /**
      * 跳转到第二个页面
      */
-    private Button mBtnJumpToSecondActivity;
+    private              Button mBtnJumpToSecondActivity;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         mBtnJumpToSecondActivity.setOnClickListener(v ->
                 startActivity(new Intent(v.getContext(), SecondActivity.class)));
+
+        throw new NullPointerException(TAG + " ---> 故意抛出来的异常");
     }
 
     private void findViewByIds() {

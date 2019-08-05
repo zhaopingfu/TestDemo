@@ -6,18 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final String TAG = "SplashActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        // 这里延时，保证能够顺利获取到补丁信息
         getWindow().getDecorView().postDelayed(() -> {
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }, 2_000);
-
-        throw new NullPointerException(TAG + " ---> 故意抛出来的异常");
     }
 }
