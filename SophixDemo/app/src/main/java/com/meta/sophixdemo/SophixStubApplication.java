@@ -54,15 +54,18 @@ public class SophixStubApplication extends SophixApplication {
         } catch (Exception e) {
             // ignore
         }
+        Log.i(TAG, "sophix app version:" + appVersion);
         final SophixManager instance = SophixManager.getInstance();
         instance.setContext(this)
                 .setAppVersion(appVersion)
                 .setSecretMetaData("27771074",
                         "edc2451700aec180f204f81c3aa691fa",
                         "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCnqhmBy16Xoq9azl6pMUWqs9mai5BU0Hc7s+n167tQhTZzo1w7DytpoA0xNZca2/lWY6UgQBSZTEkTuvncMnSRxApOlXIEBJhg/nsO5AeQAQCc1P0k+rOx1pCWC+hLXxKADnTk2lGruc7djW7BTLWwjwAPnOXSL+Qm7+P3h9BSMLMc+T2RudZumxbGJnsMOSA3THUthRr85HKgpXWPxhXup0YK5NDHfIAYl0j/P/KWkI0Izc+TlLRu2yjN3CGHqBcXvdA6ZzLDAHQQEEEV8sdLlVKPcukwgDNX3buFKCsc5xVJL6DrLC2EgWJYSsJ6ZZ5wFPjYmXlzux5gZMjwbE+JAgMBAAECggEAXDBgVAjBmzjdmF1umTM5bjHzzVE97BSv6sjzNMAIP67vkMfbF7IwmaRifJNN4Xvgbkrd6YyyhtP2Pn4JkrS/ecLENA9iIKlyK6rheP+S1PBoKNPH2URr97XVzFsBwCenYXgReCA+1eCVySZSJsEKCemnC+6mQ1sH5Qz0WQ95UScECglvwLbmD7WqChrwnMo3XLKouhSygOwjYrpa2WFeePSg+Z+0gH66Nzb+E+8aACruEhiEYe7YMqaTtY7Wynfqvmva5XzujqX9KgytDuoboNUPMajYgah2JHgjsbbZjeeUGvfXIMMMpWigVgl2p6pAI0Mncmygw8PJD3AXS2DVzQKBgQD58k49TNB6NTpKL/a9uUpV7A7a5AGiTN36cxYsspED7cCnEo+tivLviM2hTaMVMuf8F/Igz8a9EKxRhQqi/KjisM3K2cIHEw/LZd5MbNgSKdR0brfdKqO/abZECngXh0S2Owpx4NsAqgIzwvHXQ1ybsgo6TFVEVqvGRyDBjsoDmwKBgQCruaL/AOmf7EG/m+Ja/yAtdHr64LWWYsinULhirPCWO1UMma9+wFyBOV7l6bagB0L9EuIStB+8GBDqXYmTcs1TFwEBQTBiYrEyxTE3Un0aoUpQAp9stSES4yl2Ot3rA57gP5kWkbNd2uSISJEHrjzAhTpCYjWB7bE6l+WokoulqwKBgFl0/8uw0mzq4BHtWMJOruxRsH9nW65bFJeu2SDmSEC/t1QUsJfMQ2a37+DriJLtxVnUuDRGKTtB3GrQ0x3CkC+SWBViGq+tgtmpfAaebjcSAZgqiGP//ttjWni/xnulTlJqjzJy5+806dTc0PHaiiqvbjmvWFU9L/2nN3IPSP5BAoGAT6wTCYic28u7PXDPdjSD81Llc9wpo5o1ShtTUMS34puoe+4Z1A7fXD0H4FesmVaFJ/FI3jCfwJ7RykqXd8d9p502pCRglGUBnXKLwQUOcfp/BdwRp1fp/l9Sbz4kk9LcNWKMXkI/G75g5TH1x8B5A0FMpFv4Q03KOksbDDjhfX0CgYBoPKF1beh6Uu7oeRffHEDbXFqHTGHyKxspE/uJUvrevVh4N2K6PZc8toUF6rLgjf9yDOOLecFAzl5jkg6p0+ylu1hlPd2jsbQjyTGA47/3r+msSY6TMJQPh9SbVqkLclfTYHCAXCy861e8Huy8CxiDnYyXZwrRXdSQpDhkrUnilg==")
-                .setEnableDebug(false)
+                .setEnableDebug(true)
                 .setEnableFullLog()
+                .setAesKey(null)
                 .setPatchLoadStatusStub((mode, code, info, handlePatchVersion) -> {
+                    Log.i(TAG, "sophix mode: " + mode + " code: " + code + " info: " + info + " handlePatchVersion: " + handlePatchVersion);
                     if (code == PatchStatus.CODE_LOAD_SUCCESS) {
                         Log.i(TAG, "sophix load patch success!");
                     } else if (code == PatchStatus.CODE_LOAD_RELAUNCH) {

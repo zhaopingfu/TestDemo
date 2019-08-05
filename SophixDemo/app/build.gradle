@@ -57,12 +57,15 @@ android {
     }
     buildTypes {
         debug {
+            debuggable true
             signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
+            // 为了输入日志，定位错误
+            debuggable true
             signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
