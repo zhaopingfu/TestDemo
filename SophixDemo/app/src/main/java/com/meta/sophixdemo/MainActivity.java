@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
+/**
+ * @author metaapp
+ */
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         findViewByIds();
 
         mBtnAddOne.setOnClickListener(v -> {
-            mCurrNum = reduce(mCurrNum);
+            mCurrNum = add(mCurrNum);
             mBtnAddOne.setText("计算 -1 结果: " + mCurrNum);
         });
 
@@ -48,12 +51,5 @@ public class MainActivity extends AppCompatActivity {
      */
     private int add(int num) {
         return num + 1;
-    }
-
-    /**
-     * 减法
-     */
-    private int reduce(int num) {
-        return num - 1;
     }
 }
