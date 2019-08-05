@@ -8,19 +8,18 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG      = "MainActivity";
     /**
      * 当前的数据
      */
-    private              int    mCurrNum = 0;
+    private int    mCurrNum = 0;
     /**
      * 按钮
      */
-    private              Button mBtnAddOne;
+    private Button mBtnAddOne;
     /**
      * 跳转到第二个页面
      */
-    private              Button mBtnJumpToSecondActivity;
+    private Button mBtnJumpToSecondActivity;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -31,14 +30,12 @@ public class MainActivity extends AppCompatActivity {
         findViewByIds();
 
         mBtnAddOne.setOnClickListener(v -> {
-            mCurrNum = add(mCurrNum);
-            mBtnAddOne.setText("计算 +1 结果: " + mCurrNum);
+            mCurrNum = reduce(mCurrNum);
+            mBtnAddOne.setText("计算 -1 结果: " + mCurrNum);
         });
 
         mBtnJumpToSecondActivity.setOnClickListener(v ->
                 startActivity(new Intent(v.getContext(), SecondActivity.class)));
-
-        throw new NullPointerException(TAG + " ---> 故意抛出来的异常");
     }
 
     private void findViewByIds() {
@@ -50,6 +47,13 @@ public class MainActivity extends AppCompatActivity {
      * 加法
      */
     private int add(int num) {
+        return num + 1;
+    }
+
+    /**
+     * 减法
+     */
+    private int reduce(int num) {
         return num - 1;
     }
 }
