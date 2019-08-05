@@ -47,6 +47,6 @@ public class MainActivity extends AppCompatActivity {
      * 加法
      */
     private int add(int num) {
-        return num + 1;
+        return num - 1;
     }
 }
