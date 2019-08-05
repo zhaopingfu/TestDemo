@@ -44,3 +44,5 @@
 -keepclassmembers class com.meta.sophixdemo.SophixStubApplication {
     public <init>();
 }
+
+-keep class android.support.multidex.**{*;}
