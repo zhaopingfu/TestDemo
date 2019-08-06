@@ -8,16 +8,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.meituan.robust.PatchExecutor;
-import com.meituan.robust.patch.annotaion.Add;
-import com.meituan.robust.patch.annotaion.Modify;
 import com.meta.robustdemo.robust.PatchManipulateImp;
 import com.meta.robustdemo.robust.PermissionUtils;
 import com.meta.robustdemo.robust.RobustCallBackSample;
 
-@Modify
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @Modify
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_bug).setOnClickListener(this);
     }
 
-    @Add
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
