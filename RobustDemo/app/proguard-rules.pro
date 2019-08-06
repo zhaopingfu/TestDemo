@@ -23,3 +23,9 @@
 -keep public class * extends androidx.versionedparcelable.VersionedParcelable {
   <init>();
 }
+
+-keep class com.meta.robustdemo.robust.**{*;}
+-keep class android.support.multidex.**{*;}
+
+# 防止inline
+-dontoptimize
