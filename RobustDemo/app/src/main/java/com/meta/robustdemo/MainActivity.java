@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             break;
             case R.id.btn_bug: {
-                Toast.makeText(MainActivity.this, "main bug fixed222.", Toast.LENGTH_SHORT)
+                Toast.makeText(MainActivity.this, "main bug.", Toast.LENGTH_SHORT)
                         .show();
             }
             break;
