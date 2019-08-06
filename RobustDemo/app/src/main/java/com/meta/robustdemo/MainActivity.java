@@ -4,37 +4,56 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.meituan.robust.PatchExecutor;
+import com.meituan.robust.patch.annotaion.Add;
+import com.meituan.robust.patch.annotaion.Modify;
 import com.meta.robustdemo.robust.PatchManipulateImp;
 import com.meta.robustdemo.robust.PermissionUtils;
 import com.meta.robustdemo.robust.RobustCallBackSample;
 
-public class MainActivity extends AppCompatActivity {
+@Modify
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    @Modify
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.btn_patch)
-                .setOnClickListener(v -> {
-                    if (isGrantSDCardReadPermission()) {
-                        runRobust();
-                    } else {
-                        requestPermission();
-                    }
-                });
+        findViewById(R.id.btn_patch).setOnClickListener(this);
 
-        findViewById(R.id.btn_to_second_activity)
-                .setOnClickListener(v ->
-                        startActivity(new Intent(v.getContext(), SecondActivity.class)));
+        findViewById(R.id.btn_to_second_activity).setOnClickListener(this);
 
-        findViewById(R.id.btn_bug)
-                .setOnClickListener(v ->
-                        Toast.makeText(MainActivity.this, "main bug", Toast.LENGTH_SHORT)
-                                .show());
+        findViewById(R.id.btn_bug).setOnClickListener(this);
+    }
+
+    @Add
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_patch: {
+                if (isGrantSDCardReadPermission()) {
+                    runRobust();
+                } else {
+                    requestPermission();
+                }
+            }
+            break;
+            case R.id.btn_to_second_activity: {
+                startActivity(new Intent(v.getContext(), SecondActivity.class));
+            }
+            break;
+            case R.id.btn_bug: {
+                Toast.makeText(MainActivity.this, "main bug.", Toast.LENGTH_SHORT)
+                        .show();
+            }
+            break;
+            default:
+                break;
+        }
     }
 
     private boolean isGrantSDCardReadPermission() {
