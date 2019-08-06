@@ -63,7 +63,7 @@ public class PatchManipulateImp extends PatchManipulate {
 
         // setPatchesInfoImplClassFullName 设置项各个App可以独立定制，需要确保的是setPatchesInfoImplClassFullName设置的包名是和xml配置项patchPackname保持一致，而且类名必须是：PatchManipulateImp
         // 请注意这里的设置
-        patch.setPatchesInfoImplClassFullName("com.meta.xyx.robust.PatchManipulateImp");
+        patch.setPatchesInfoImplClassFullName("com.meta.robustdemo.robust.PatchManipulateImp");
         List<Patch> patches = new ArrayList<>();
         patches.add(patch);
         return patches;
