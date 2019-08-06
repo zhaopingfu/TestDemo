@@ -1,8 +1,7 @@
 package com.meta.robustdemo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -17,13 +16,10 @@ public class SecondActivity extends AppCompatActivity {
 
         btnSecondBug.setText(getSecondText());
 
-        btnSecondBug.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SecondActivity.this, "second bug.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        btnSecondBug.setOnClickListener(v ->
+                Toast.makeText(SecondActivity.this, "second bug.", Toast.LENGTH_SHORT)
+                        .show()
+        );
     }
 
     private String getSecondText() {
