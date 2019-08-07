@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.meituan.robust.PatchExecutor;
+import com.meituan.robust.patch.annotaion.Add;
+import com.meituan.robust.patch.annotaion.Modify;
 import com.meta.robustdemo.robust.PatchManipulateImp;
 import com.meta.robustdemo.robust.PermissionUtils;
 import com.meta.robustdemo.robust.RobustCallBackSample;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_bug).setOnClickListener(this);
     }
 
+    @Modify
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -42,13 +45,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             break;
             case R.id.btn_bug: {
-                Toast.makeText(MainActivity.this, "main bug.", Toast.LENGTH_SHORT)
-                        .show();
+                addMethod();
             }
             break;
             default:
                 break;
         }
+    }
+
+    @Add
+    private void addMethod() {
+        Toast.makeText(MainActivity.this, "main bug fixed.", Toast.LENGTH_SHORT)
+                .show();
     }
 
     private boolean isGrantSDCardReadPermission() {
