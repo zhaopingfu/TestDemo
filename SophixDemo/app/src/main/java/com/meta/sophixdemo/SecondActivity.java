@@ -23,8 +23,10 @@ public class SecondActivity extends AppCompatActivity {
 
         btnJumpToThirdActivity.setOnClickListener(v ->
                 startActivity(new Intent(v.getContext(), ThirdActivity.class)));
-        btnToast.setOnClickListener(v ->
-                Toast.makeText(SecondActivity.this, "second bug fixed.", Toast.LENGTH_SHORT)
-                        .show());
+        btnToast.setOnClickListener(v -> addNewMethod());
+    }
+
+    private void addNewMethod() {
+        Toast.makeText(this, "新增的方法", Toast.LENGTH_SHORT).show();
     }
 }

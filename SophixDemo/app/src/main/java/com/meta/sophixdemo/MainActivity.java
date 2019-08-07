@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         findViewByIds();
 
         mBtnAddOne.setOnClickListener(v -> {
-            mCurrNum = addTwo(mCurrNum);
-            mBtnAddOne.setText("计算 +2 结果: " + mCurrNum);
+            mCurrNum = reduce(mCurrNum);
+            mBtnAddOne.setText("计算 -1 结果: " + mCurrNum);
         });
 
         mBtnJumpToSecondActivity.setOnClickListener(v ->
@@ -61,7 +61,14 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 加法
      */
-    private int addTwo(int num) {
-        return num + 2;
+    private int add(int num) {
+        return num + 1;
+    }
+
+    /**
+     * 减法
+     */
+    private int reduce(int num) {
+        return num - 1;
     }
 }
