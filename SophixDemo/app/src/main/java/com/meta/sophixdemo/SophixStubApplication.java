@@ -71,10 +71,6 @@ public class SophixStubApplication extends SophixApplication {
                     } else if (code == PatchStatus.CODE_LOAD_RELAUNCH) {
                         // 如果需要在后台重启，建议此处用SharePreference保存状态。
                         Log.i(TAG, "sophix preload patch success. restart app to make effect.");
-                        instance.killProcessSafely();
-                    } else if (code == PatchStatus.CODE_REQ_CLEARPATCH) {
-                        Log.i(TAG, "sophix clear patchs.");
-                        instance.cleanPatches();
                     }
                 }).initialize();
     }
