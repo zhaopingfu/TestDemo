@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,14 +17,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_add_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="计算 +1 结果: 0"/>
+        android:text="计算 +1 结果: 0" />
 
     <Button
         android:id="@+id/btn_jump_to_second_activity"
@@ -33,5 +32,13 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="跳转到第二个页面"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_check_fix_bag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="检查补丁"
+        android:textAllCaps="false" />
 </LinearLayout>

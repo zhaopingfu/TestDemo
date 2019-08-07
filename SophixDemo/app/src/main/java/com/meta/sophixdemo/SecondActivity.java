@@ -24,7 +24,7 @@ public class SecondActivity extends AppCompatActivity {
         btnJumpToThirdActivity.setOnClickListener(v ->
                 startActivity(new Intent(v.getContext(), ThirdActivity.class)));
         btnToast.setOnClickListener(v ->
-                Toast.makeText(SecondActivity.this, "我是吐司。。", Toast.LENGTH_SHORT)
+                Toast.makeText(SecondActivity.this, "second bug.", Toast.LENGTH_SHORT)
                         .show());
     }
 }
