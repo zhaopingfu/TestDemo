@@ -1,5 +1,7 @@
 package com.meta.optimize_plugin
 
+import com.tinify.Source
+import com.tinify.Tinify
 import org.gradle.api.Project
 
 import javax.imageio.ImageIO
@@ -73,47 +75,125 @@ class OptimizeUtil {
     }
 
     /**
-     * 压缩png 图片
+     * 获取指定目录下的所有符合条件的文件
+     *
+     * @param dir 指定目录
+     * @param closure{ file -> boolean }
      */
-    static void compressPics(List<File> files, def pngTool, def jpgTool, boolean isPng) {
-        if (files.isEmpty()) {
-            return
+    static List<File> getAllFiles(File dir, Closure closure) {
+        if (!dir.isDirectory()) {
+            return []
         }
+        def result = []
+        dir.eachFile { file ->
+            if (file.isDirectory()) {
+                result.addAll(getAllFiles(file, closure))
+            } else if (file.isFile() && closure.call(file)) {
+                result << file
+            }
+        }
+        return result
+    }
 
-        def compressErrors = []
-        def compressFail = []
-        files.each { file ->
-            // 因为是压缩,压缩后和压缩前名字一样,所以先弄一个临时文件,压缩过后把源文件删除,再把临时文件的名字修改
-            def output = new File(file.parent, "temp-preoptimizer-${file.name}")
-            def result
-            if (isPng) {
-                result = "$pngTool -brute -rem alla -reduce -q ${file.absolutePath} ${output.absolutePath}".execute()
+    /**
+     * 采用 tiny 压缩png
+     */
+    static boolean compressPngTiny(File file) {
+        // 因为是压缩,压缩后和压缩前名字一样,所以先弄一个临时文件,压缩过后把源文件删除,再把临时文件的名字修改
+        def output = new File(file.parent, "temp-preoptimizer-${file.name}")
+        try {
+            Tinify.setKey("47tGYp7yc759xPLJtByP4DdJY4f98vqM")
+            Source source = Tinify.fromFile(file.getAbsolutePath())
+            source.toFile(output.getAbsolutePath())
+
+            def rawLen = file.length()
+            def outLen = output.length()
+            if (outLen < rawLen) {
+                double percent = (double) (rawLen - outLen) / rawLen * 100F
+                String format = String.format("%.2f%%", percent)
+                println "---> compress pngTiny ${file.absolutePath} success 压缩了 $format"
+                // 删除原图片
+                file.delete()
+                // 将压缩后的图片重命名为原图片
+                output.renameTo(file)
+                return true
             } else {
-                result = "$jpgTool --quality 85  ${file.absolutePath} ${output.absolutePath}".execute()
+                output.delete()
+                println "---> compress pngTiny ${file.absolutePath} bigger than raw"
             }
-            // 等待命令执行完成
-            result.waitForProcessOutput()
-            // 压缩成功
-            if (result.exitValue() == 0) {
-                def rawLen = file.length()
-                def outLen = output.length()
-                // 压缩后文件确实小了
-                if (outLen < rawLen) {
-                    println "---> compress ${file.absolutePath} success"
-                    // 删除原图片
-                    file.delete()
-                    // 将压缩后的图片重命名为原图片
-                    output.renameTo(file)
-                } else {
-                    compressFail.add(file.absolutePath)
-                    println "---> compress ${file.absolutePath} bigger than raw"
-                    output.delete()
-                }
-            } else {
-                compressErrors.add(file.absolutePath)
-                println "---> compress ${file.absolutePath} error"
-            }
+        } catch (Exception e) {
+            output.delete()
+            println "---> compress pngTiny ${file.absolutePath} error: ${e.message}"
         }
+        return false
+    }
+
+    /**
+     * 用 pngCrush 压缩png
+     */
+    static boolean compressPngCrush(def pngTool, File file) {
+        // 因为是压缩,压缩后和压缩前名字一样,所以先弄一个临时文件,压缩过后把源文件删除,再把临时文件的名字修改
+        def output = new File(file.parent, "temp-preoptimizer-${file.name}")
+        def result = "$pngTool -brute -rem alla -reduce -q ${file.absolutePath} ${output.absolutePath}".execute()
+        // 等待命令执行完成
+        result.waitForProcessOutput()
+        // 压缩成功
+        if (result.exitValue() == 0) {
+            def rawLen = file.length()
+            def outLen = output.length()
+            // 压缩后文件确实小了
+            if (outLen < rawLen) {
+                double percent = (double) (rawLen - outLen) / rawLen * 100F
+                String format = String.format("%.2f%%", percent)
+                println "---> compress pngCrush ${file.absolutePath} success 压缩了: $format"
+                // 删除原图片
+                file.delete()
+                // 将压缩后的图片重命名为原图片
+                output.renameTo(file)
+                return true
+            } else {
+                output.delete()
+                println "---> compress pngCrush ${file.absolutePath} bigger than raw"
+            }
+        } else {
+            output.delete()
+            println "---> compress pngCrush ${file.absolutePath} error"
+        }
+        return false
+    }
+
+    /**
+     * 压缩 jpg
+     */
+    static boolean compressJpg(def jpgTool, File file) {
+        // 因为是压缩,压缩后和压缩前名字一样,所以先弄一个临时文件,压缩过后把源文件删除,再把临时文件的名字修改
+        def output = new File(file.parent, "temp-preoptimizer-${file.name}")
+        def result = "$jpgTool --quality 85  ${file.absolutePath} ${output.absolutePath}".execute()
+        // 等待命令执行完成
+        result.waitForProcessOutput()
+        // 压缩成功
+        if (result.exitValue() == 0) {
+            def rawLen = file.length()
+            def outLen = output.length()
+            // 压缩后文件确实小了
+            if (outLen < rawLen) {
+                double percent = (double) (rawLen - outLen) / rawLen * 100F
+                String format = String.format("%.2f%%", percent)
+                println "---> compress jpg ${file.absolutePath} success 压缩了: $format"
+                // 删除原图片
+                file.delete()
+                // 将压缩后的图片重命名为原图片
+                output.renameTo(file)
+                return true
+            } else {
+                output.delete()
+                println "---> compress jpg ${file.absolutePath} bigger than raw"
+            }
+        } else {
+            output.delete()
+            println "---> compress jpg ${file.absolutePath} error"
+        }
+        return false
     }
 
     /**

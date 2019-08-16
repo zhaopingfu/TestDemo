@@ -49,8 +49,8 @@ class OptimizeTask extends DefaultTask {
         }
 
         // 获取 assets 下的图片
-        pngFileList.addAll(getAllFiles(assetsFolderFile, { File file -> OptimizeUtil.isPreOptimizePng(file) }))
-        jpgFileList.addAll(getAllFiles(assetsFolderFile, { File file -> OptimizeUtil.isPreOptimizeJpg(file) }))
+        pngFileList.addAll(OptimizeUtil.getAllFiles(assetsFolderFile, { File file -> OptimizeUtil.isPreOptimizePng(file) }))
+        jpgFileList.addAll(OptimizeUtil.getAllFiles(assetsFolderFile, { File file -> OptimizeUtil.isPreOptimizeJpg(file) }))
 
         // 没有转为 webp 的要压缩
         def preCompressPngList = []
@@ -69,28 +69,12 @@ class OptimizeTask extends DefaultTask {
         }
 
         // 压缩图片
-        OptimizeUtil.compressPics(preCompressPngList, pngTool, jpgTool, true)
-        OptimizeUtil.compressPics(preCompressJpgList, pngTool, jpgTool, false)
-    }
-
-    /**
-     * 获取指定目录下的所有符合条件的文件地址
-     *
-     * @param dir 指定目录
-     * @param closure{ file -> boolean }
-     */
-    static List<File> getAllFiles(File dir, Closure closure) {
-        if (!dir.isDirectory()) {
-            return []
-        }
-        def result = []
-        dir.eachFile { file ->
-            if (file.isDirectory()) {
-                result.addAll(getAllFiles(file, closure))
-            } else if (file.isFile() && closure.call(file)) {
-                result << file
+        preCompressPngList.each { file ->
+            // 优先使用 tiny 压缩, 如果压缩没效果再用 pngCrush
+            if (!OptimizeUtil.compressPngTiny(file)) {
+                OptimizeUtil.compressPngCrush(pngTool, file)
             }
         }
-        return result
+        preCompressJpgList.each { OptimizeUtil.compressJpg(jpgTool, it) }
     }
 }
