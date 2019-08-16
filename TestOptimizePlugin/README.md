@@ -11,6 +11,10 @@
 
 3、`webp` 转换失败的进行压缩处理
 
+`png` 优先使用 `tiny` 压缩, 如果压缩失败采用 `pngCrush` 压缩
+
+`jpg` 采用 `guetzli` 压缩
+
 ### 使用
 
 先执行 `meta_optimize_plugin` 模块下 `/publishing/publishOptimizerPublicationToMavenLocal` 任务
