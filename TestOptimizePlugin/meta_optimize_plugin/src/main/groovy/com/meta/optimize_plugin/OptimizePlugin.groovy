@@ -14,11 +14,11 @@ class OptimizePlugin implements Plugin<Project> {
             // application
             if (project.plugins.hasPlugin(AppPlugin)) {
                 // project.android.applicationVariants.all { BaseVariant variant -> addTask(project, variant) }
-                addTask(project, project.project.android.applicationVariants[0])
+                addTask(project, project.android.applicationVariants[0])
             }
             // android library
             else if (project.plugins.hasPlugin(LibraryPlugin)) {
-                addTask(project, project.project.android.libraryVariants[0])
+                addTask(project, project.android.libraryVariants[0])
                 // project.android.libraryVariants.all { BaseVariant variant -> addTask(project, variant) }
             }
         }
