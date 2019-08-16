@@ -1,7 +1,3 @@
-import com.android.build.gradle.AppPlugin
-import com.android.build.gradle.LibraryPlugin
-import com.meta.optimize_plugin.OptimizePlugin
-
 buildscript {
     ext.kotlin_version = '1.3.31'
     repositories {
@@ -30,10 +26,8 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-allprojects.each { project ->
-    project.afterEvaluate {
-        if (project.plugins.hasPlugin(AppPlugin) || project.plugins.hasPlugin(LibraryPlugin)) {
-            project.pluginManager.apply(OptimizePlugin)
-        }
-    }
+project.ext {
+    rootConfig = [
+            tinyKey: "47tGYp7yc759xPLJtByP4DdJY4f98vqM"
+    ]
 }

@@ -20,6 +20,7 @@ class OptimizeTask extends DefaultTask {
 
     OptimizeTask() {
         group "Optimizer"
+        description "图片转换为webp或者压缩"
 
         pngTool = OptimizeUtil.getTool(project, "pngcrush")
         jpgTool = OptimizeUtil.getTool(project, "guetzli")
@@ -31,6 +32,13 @@ class OptimizeTask extends DefaultTask {
         println "=========Optimizer=========="
         println "assetsFolder : $assetsFolderFile.absolutePath"
         println "resFolder : $resFolderFile.absolutePath"
+
+        // 拿到参数
+        OptimizeExtension extension = project.optimizePicture
+        println "extension: $extension"
+        if (extension.useTinyCompress && (null == extension.tinyKey || extension.tinyKey.isEmpty())) {
+            throw GradleException("使用tiny压缩需要配置tinyKey")
+        }
 
         // 拿到所有要处理的图片
         def pngFileList = []
@@ -49,8 +57,10 @@ class OptimizeTask extends DefaultTask {
         }
 
         // 获取 assets 下的图片
-        pngFileList.addAll(OptimizeUtil.getAllFiles(assetsFolderFile, { File file -> OptimizeUtil.isPreOptimizePng(file) }))
-        jpgFileList.addAll(OptimizeUtil.getAllFiles(assetsFolderFile, { File file -> OptimizeUtil.isPreOptimizeJpg(file) }))
+        if (extension.isCompressAssets) {
+            pngFileList.addAll(OptimizeUtil.getAllFiles(assetsFolderFile, { File file -> OptimizeUtil.isPreOptimizePng(file) }))
+            jpgFileList.addAll(OptimizeUtil.getAllFiles(assetsFolderFile, { File file -> OptimizeUtil.isPreOptimizeJpg(file) }))
+        }
 
         // 没有转为 webp 的要压缩
         def preCompressPngList = []
@@ -70,8 +80,12 @@ class OptimizeTask extends DefaultTask {
 
         // 压缩图片
         preCompressPngList.each { file ->
-            // 优先使用 tiny 压缩, 如果压缩没效果再用 pngCrush
-            if (!OptimizeUtil.compressPngTiny(file)) {
+            if (extension.useTinyCompress) {
+                // 优先使用 tiny 压缩, 如果压缩没效果再用 pngCrush
+                if (!OptimizeUtil.compressPngTiny(file, extension.tinyKey)) {
+                    OptimizeUtil.compressPngCrush(pngTool, file)
+                }
+            } else {
                 OptimizeUtil.compressPngCrush(pngTool, file)
             }
         }

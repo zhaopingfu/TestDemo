@@ -2,10 +2,10 @@ package com.meta.optimize_plugin
 
 import com.tinify.Source
 import com.tinify.Tinify
+import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.api.Project
 
 import javax.imageio.ImageIO
-import org.apache.tools.ant.taskdefs.condition.Os
 
 class OptimizeUtil {
 
@@ -98,11 +98,17 @@ class OptimizeUtil {
     /**
      * 采用 tiny 压缩png
      */
-    static boolean compressPngTiny(File file) {
+    static boolean compressPngTiny(File file, String tinyKey) {
         // 因为是压缩,压缩后和压缩前名字一样,所以先弄一个临时文件,压缩过后把源文件删除,再把临时文件的名字修改
         def output = new File(file.parent, "temp-preoptimizer-${file.name}")
         try {
-            Tinify.setKey("47tGYp7yc759xPLJtByP4DdJY4f98vqM")
+            def count = Tinify.compressionCount()
+            println "---> tiny count: $count tiny 剩余免费次数:${500 - count}"
+            if (count >= 500) {
+                return false
+            }
+
+            Tinify.setKey(tinyKey)
             Source source = Tinify.fromFile(file.getAbsolutePath())
             source.toFile(output.getAbsolutePath())
 

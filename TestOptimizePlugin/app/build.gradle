@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.meta.optimizer'
 
 android {
     compileSdkVersion 28
@@ -44,4 +45,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation 'com.tinify:tinify:1.6.4'
+}
+
+optimizePicture {
+    useTinyCompress false
+    tinyKey rootConfig.tinyKey
+    isCompressAssets false
 }
