@@ -1,0 +1,26 @@
+apply plugin: 'java-library'
+apply plugin: 'groovy'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation 'com.android.tools.build:gradle:3.4.2'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+apply plugin: 'maven-publish'
+
+group "com.meta.optimizer"
+version "1.0.0"
+
+publishing {
+    publications {
+        optimizer(MavenPublication) {
+            from components.java
+            artifactId = "optimizer"
+        }
+    }
+}

@@ -1,0 +1,3 @@
+include ':app'
+include ':test_lib'
+include ':meta_optimize_plugin'
