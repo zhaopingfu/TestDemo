@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:ignore="HardcodedText">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_jump_group_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GroupActivity"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_jump_layer_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LayerActivity"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_jump_circular_reveal_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CircularRevealActivity"
+            android:textAllCaps="false" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>
