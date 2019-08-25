@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BarrierActivity"></activity>
+        <activity android:name=".PlaceHolderActivity"></activity>
+        <activity android:name=".BarrierActivity" />
         <activity android:name=".circular_reveal_helper.CircularRevealActivity" />
         <activity android:name=".LayerActivity" />
         <activity android:name=".GroupActivity" />

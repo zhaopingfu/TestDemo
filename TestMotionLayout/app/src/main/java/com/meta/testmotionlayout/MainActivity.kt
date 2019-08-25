@@ -27,5 +27,9 @@ class MainActivity : AppCompatActivity() {
         btn_jump_circular_reveal_activity.setOnClickListener {
             startActivity(Intent(it.context, CircularRevealActivity::class.java))
         }
+
+        btn_jump_placeholder_activity.setOnClickListener {
+            startActivity(Intent(it.context, PlaceHolderActivity::class.java))
+        }
     }
 }

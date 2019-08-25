@@ -39,5 +39,12 @@
             android:layout_height="wrap_content"
             android:text="CircularReveal"
             android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_jump_placeholder_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PlaceHolder"
+            android:textAllCaps="false" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.core.widget.NestedScrollView>
