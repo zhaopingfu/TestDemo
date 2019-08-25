@@ -31,5 +31,9 @@ class MainActivity : AppCompatActivity() {
         btn_jump_placeholder_activity.setOnClickListener {
             startActivity(Intent(it.context, PlaceHolderActivity::class.java))
         }
+
+        btn_jump_constraintset_activity.setOnClickListener {
+            startActivity(Intent(it.context, ConstraintSetActivity::class.java))
+        }
     }
 }
