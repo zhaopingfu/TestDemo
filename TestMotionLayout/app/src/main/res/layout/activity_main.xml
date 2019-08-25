@@ -16,21 +16,28 @@
             android:id="@+id/btn_jump_group_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GroupActivity"
+            android:text="Group"
             android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btn_jump_layer_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="LayerActivity"
+            android:text="Layer"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_jump_barrier_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Barrier"
             android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btn_jump_circular_reveal_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CircularRevealActivity"
+            android:text="CircularReveal"
             android:textAllCaps="false" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.core.widget.NestedScrollView>

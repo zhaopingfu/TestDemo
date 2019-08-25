@@ -20,6 +20,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(it.context, LayerActivity::class.java))
         }
 
+        btn_jump_barrier_activity.setOnClickListener {
+            startActivity(Intent(it.context, BarrierActivity::class.java))
+        }
+
         btn_jump_circular_reveal_activity.setOnClickListener {
             startActivity(Intent(it.context, CircularRevealActivity::class.java))
         }
