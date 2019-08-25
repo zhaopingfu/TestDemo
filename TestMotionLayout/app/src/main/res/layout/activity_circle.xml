@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CircleActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/sun"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/sun"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/earth"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/earth"
+        app:layout_constraintCircle="@id/sun"
+        app:layout_constraintCircleAngle="45"
+        app:layout_constraintCircleRadius="150dp"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/moon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/moon"
+        app:layout_constraintCircle="@id/earth"
+        app:layout_constraintCircleAngle="270"
+        app:layout_constraintCircleRadius="40dp"
+        tools:ignore="MissingConstraints" />
+</androidx.constraintlayout.widget.ConstraintLayout>

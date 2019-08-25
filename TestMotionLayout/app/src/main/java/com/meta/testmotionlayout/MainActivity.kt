@@ -12,6 +12,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        btn_jump_circle_activity.setOnClickListener {
+            startActivity(Intent(it.context, CircleActivity::class.java))
+        }
+
         btn_jump_group_activity.setOnClickListener {
             startActivity(Intent(it.context, GroupActivity::class.java))
         }

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FlowActivity"></activity>
+        <activity android:name=".CircleActivity"></activity>
+        <activity android:name=".FlowActivity" />
         <activity android:name=".ConstraintSetActivity" />
         <activity android:name=".PlaceHolderActivity" />
         <activity android:name=".BarrierActivity" />

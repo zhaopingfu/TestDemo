@@ -13,6 +13,13 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btn_jump_circle_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Circle"
+            android:textAllCaps="false" />
+
+        <Button
             android:id="@+id/btn_jump_group_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,13 +41,6 @@
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btn_jump_circular_reveal_activity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CircularReveal"
-            android:textAllCaps="false" />
-
-        <Button
             android:id="@+id/btn_jump_placeholder_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,10 +48,10 @@
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btn_jump_constraintset_activity"
+            android:id="@+id/btn_jump_circular_reveal_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ConstraintSet"
+            android:text="CircularReveal"
             android:textAllCaps="false" />
 
         <Button
@@ -59,6 +59,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Flow"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_jump_constraintset_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ConstraintSet"
             android:textAllCaps="false" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.core.widget.NestedScrollView>
