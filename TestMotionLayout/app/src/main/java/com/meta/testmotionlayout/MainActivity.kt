@@ -35,5 +35,9 @@ class MainActivity : AppCompatActivity() {
         btn_jump_constraintset_activity.setOnClickListener {
             startActivity(Intent(it.context, ConstraintSetActivity::class.java))
         }
+
+        btn_jump_flow_activity.setOnClickListener {
+            startActivity(Intent(it.context, FlowActivity::class.java))
+        }
     }
 }
