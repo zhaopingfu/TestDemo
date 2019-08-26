@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.meta.testmotionlayout.circular_reveal_helper.CircularRevealActivity
+import com.meta.testmotionlayout.fly_in_helper.FlyInActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +31,10 @@ class MainActivity : AppCompatActivity() {
 
         btn_jump_circular_reveal_activity.setOnClickListener {
             startActivity(Intent(it.context, CircularRevealActivity::class.java))
+        }
+
+        btn_jump_fly_in_activity.setOnClickListener {
+            startActivity(Intent(it.context, FlyInActivity::class.java))
         }
 
         btn_jump_placeholder_activity.setOnClickListener {
