@@ -4,61 +4,222 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FlowActivity"
-    tools:ignore="MissingConstraints">
+    tools:context=".FlowActivity">
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="bottom|end"
+        android:padding="10dp"
+        android:text="0"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="3.5:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/flow"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorAccent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FFC107"
         android:orientation="horizontal"
-        app:constraint_referenced_ids="view1,view2,view3,view4,view5"
-        app:flow_firstHorizontalBias="0.1"
-        app:flow_firstHorizontalStyle="packed"
-        app:flow_firstVerticalBias="0.9"
-        app:flow_horizontalAlign="end"
-        app:flow_horizontalGap="8dp"
-        app:flow_horizontalStyle="packed"
+        app:constraint_referenced_ids="tv_num_7,tv_num_8,tv_num_9,tv_num_4,tv_num_5,tv_num_6,tv_num_1,tv_num_2,tv_num_3,tv_num_0,tv_num_xiexian,tv_num_dian,tv_num_xing"
+        app:flow_horizontalStyle="spread"
         app:flow_maxElementsWrap="3"
-        app:flow_verticalAlign="top"
-        app:flow_verticalGap="8dp"
-        app:flow_verticalStyle="packed"
-        app:flow_wrapMode="chain"
+        app:flow_verticalStyle="spread"
+        app:flow_wrapMode="aligned"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tv_result" />
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@color/colorPrimaryDark" />
+    <TextView
+        android:id="@+id/tv_num_7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="7"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.2"
+        tools:ignore="HardcodedText,MissingConstraints" />
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@color/colorPrimaryDark" />
+    <TextView
+        android:id="@+id/tv_num_8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="8"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.2"
+        tools:ignore="HardcodedText,MissingConstraints" />
 
-    <View
-        android:id="@+id/view3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_margin="8dp"
-        android:background="@color/colorPrimaryDark" />
+    <TextView
+        android:id="@+id/tv_num_9"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="9"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.2"
+        tools:ignore="HardcodedText,MissingConstraints" />
 
-    <View
-        android:id="@+id/view4"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@color/colorPrimaryDark" />
+    <TextView
+        android:id="@+id/tv_num_4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="4"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.2"
+        tools:ignore="HardcodedText,MissingConstraints" />
 
-    <View
-        android:id="@+id/view5"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@color/colorPrimaryDark" />
+    <TextView
+        android:id="@+id/tv_num_5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="5"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.2"
+        tools:ignore="HardcodedText,MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_num_6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="6"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.2"
+        tools:ignore="HardcodedText,MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_num_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.2"
+        tools:ignore="HardcodedText,MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_num_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="2"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.2"
+        tools:ignore="HardcodedText,MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_num_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="3"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.2"
+        tools:ignore="HardcodedText,MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_num_0"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.2"
+        tools:ignore="HardcodedText,MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_num_xiexian"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="/"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.2"
+        tools:ignore="HardcodedText,MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_num_dian"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="."
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.2"
+        tools:ignore="HardcodedText,MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_num_xing"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="*"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.2"
+        tools:ignore="HardcodedText,MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_num_equals"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FF0088FF"
+        android:gravity="center"
+        android:text="="
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_num_xing"
+        app:layout_constraintEnd_toEndOf="@id/tv_num_dian"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="@id/tv_num_xiexian"
+        app:layout_constraintTop_toTopOf="@id/tv_num_xing"
+        tools:ignore="HardcodedText,MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
