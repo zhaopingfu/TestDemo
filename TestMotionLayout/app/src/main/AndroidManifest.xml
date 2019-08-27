@@ -29,6 +29,7 @@
         <activity android:name=".circular_reveal_helper.CircularRevealActivity" />
         <activity android:name=".LayerActivity" />
         <activity android:name=".GroupActivity" />
+        <activity android:name=".WithCoordinatorLayoutActivity" />
     </application>
 
 </manifest>

@@ -81,5 +81,12 @@
             android:layout_height="wrap_content"
             android:text="Go"
             android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_jump_with_coordinatorlayout_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WithCoordinatorLayout"
+            android:textAllCaps="false" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.core.widget.NestedScrollView>
