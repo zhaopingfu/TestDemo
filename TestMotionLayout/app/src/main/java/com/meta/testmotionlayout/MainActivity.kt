@@ -56,5 +56,9 @@ class MainActivity : AppCompatActivity() {
         btn_jump_with_coordinatorlayout_activity.setOnClickListener {
             startActivity(Intent(it.context, WithCoordinatorLayoutActivity::class.java))
         }
+
+        btn_jump_with_drawerlayout_activity.setOnClickListener {
+            startActivity(Intent(it.context, WithDrawerLayoutActivity::class.java))
+        }
     }
 }
