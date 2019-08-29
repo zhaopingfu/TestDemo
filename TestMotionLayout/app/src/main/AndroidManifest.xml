@@ -11,8 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".WithDrawerLayoutActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -20,17 +21,45 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".fly_in_helper.FlyInActivity" />
-        <activity android:name=".GoActivity" />
-        <activity android:name=".CircleActivity" />
-        <activity android:name=".FlowActivity" />
-        <activity android:name=".ConstraintSetActivity" />
-        <activity android:name=".PlaceHolderActivity" />
-        <activity android:name=".BarrierActivity" />
-        <activity android:name=".circular_reveal_helper.CircularRevealActivity" />
-        <activity android:name=".LayerActivity" />
-        <activity android:name=".GroupActivity" />
-        <activity android:name=".WithCoordinatorLayoutActivity" />
+        <activity
+            android:name=".fly_in_helper.FlyInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CircleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FlowActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ConstraintSetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PlaceHolderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BarrierActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".circular_reveal_helper.CircularRevealActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LayerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GroupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WithCoordinatorLayoutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WithDrawerLayoutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ObjectAnimatorActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

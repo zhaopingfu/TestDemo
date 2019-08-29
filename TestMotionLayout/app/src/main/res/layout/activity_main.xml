@@ -69,10 +69,10 @@
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btn_jump_constraintset_activity"
+            android:id="@+id/btn_jump_object_animator_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ConstraintSet"
+            android:text="ObjectAnimator"
             android:textAllCaps="false" />
 
         <Button
@@ -80,6 +80,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Go"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_jump_constraintset_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ConstraintSet"
             android:textAllCaps="false" />
 
         <Button

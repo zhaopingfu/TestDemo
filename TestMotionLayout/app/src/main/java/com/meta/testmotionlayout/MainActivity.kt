@@ -49,6 +49,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(it.context, FlowActivity::class.java))
         }
 
+        btn_jump_object_animator_activity.setOnClickListener {
+            startActivity(Intent(it.context, ObjectAnimatorActivity::class.java))
+        }
+
         btn_jump_go_activity.setOnClickListener {
             startActivity(Intent(it.context, GoActivity::class.java))
         }
