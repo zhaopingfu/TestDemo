@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetEnd="@layout/layout_constraintset_end2"
+        app:constraintSetStart="@layout/activity_motion_layout"
+        app:duration="500"
+        app:motionInterpolator="bounce">
+
+        <OnClick
+            app:clickAction="toggle"
+            app:targetId="@id/fab_favourite" />
+
+        <OnSwipe
+            app:dragDirection="dragDown"
+            app:touchRegionId="@id/image_film_cover" />
+    </Transition>
+
+
+    <!-- ====================================================================================== -->
+
+
+    <!--    <Transition-->
+    <!--        app:constraintSetEnd="@id/end"-->
+    <!--        app:constraintSetStart="@id/start"-->
+    <!--        app:duration="500">-->
+    <!--        -->
+    <!--        <OnClick-->
+    <!--            app:clickAction="toggle"-->
+    <!--            app:targetId="@id/fab_favourite" />-->
+
+    <!--        <OnSwipe-->
+    <!--            app:dragDirection="dragDown"-->
+    <!--            app:touchAnchorId="@id/image_film_cover" />-->
+    <!--    </Transition>-->
+
+    <!--    <ConstraintSet android:id="@+id/start" />-->
+
+    <!--    <ConstraintSet android:id="@+id/end">-->
+    <!--        -->
+    <!--        <Constraint-->
+    <!--            android:id="@+id/background"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:background="@color/colorPrimary"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--        <Constraint-->
+    <!--            android:id="@+id/image_film_cover"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:contentDescription="@null"-->
+    <!--            android:scaleType="fitXY"-->
+    <!--            android:src="@drawable/film_cover"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--        <Constraint-->
+    <!--            android:id="@+id/text_film_title"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="16dp"-->
+    <!--            android:paddingVertical="8dp"-->
+    <!--            android:textColor="@android:color/white"-->
+    <!--            android:textSize="14sp"-->
+    <!--            app:layout_constraintStart_toEndOf="@id/image_film_cover"-->
+    <!--            app:layout_constraintTop_toTopOf="@id/image_film_cover" />-->
+
+    <!--        <Constraint-->
+    <!--            android:id="@+id/rating_film_rating"-->
+    <!--            style="?android:attr/ratingBarStyleSmall"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:numStars="5"-->
+    <!--            android:paddingVertical="8dp"-->
+    <!--            android:progressTint="@color/colorBookMark"-->
+    <!--            app:layout_constraintStart_toStartOf="@+id/text_film_title"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/text_film_title" />-->
+
+    <!--        <Constraint-->
+    <!--            android:id="@+id/film_description_title"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:padding="16dp"-->
+    <!--            android:text="电影简介"-->
+    <!--            android:textColor="@color/colorPrimary"-->
+    <!--            android:textSize="16sp"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/background" />-->
+
+    <!--        <Constraint-->
+    <!--            android:id="@+id/text_film_description"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:paddingHorizontal="16dp"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/film_description_title" />-->
+
+    <!--        <Constraint-->
+    <!--            android:id="@+id/fab_favourite"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_margin="16dp"-->
+    <!--            android:src="@drawable/ic_bookmark_24dp"-->
+    <!--            android:tint="@color/colorBookMark"-->
+    <!--            app:fabSize="mini"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent" />-->
+    <!--    </ConstraintSet>-->
+</MotionScene>
