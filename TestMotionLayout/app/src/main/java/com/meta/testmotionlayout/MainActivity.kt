@@ -64,6 +64,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(it.context, MotionLayoutActivity::class.java))
         }
 
+        btn_jump_sample_activity.setOnClickListener {
+            startActivity(Intent(it.context, SampleActivity::class.java))
+        }
+
         btn_jump_with_coordinatorlayout_activity.setOnClickListener {
             startActivity(Intent(it.context, WithCoordinatorLayoutActivity::class.java))
         }

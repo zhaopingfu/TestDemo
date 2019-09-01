@@ -66,5 +66,9 @@
         <activity
             android:name=".MotionLayoutActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".SampleActivity"
+            android:screenOrientation="portrait" />
     </application>
+
 </manifest>
