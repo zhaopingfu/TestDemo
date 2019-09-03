@@ -2,11 +2,11 @@
 
 #### `过渡动画`
 
-- 1、 有一个简单的需求，屏幕上左边居中有一个控件，现在要向右移动到 `200dp`，有什么办法呢?
+- 1、 有一个简单的需求，屏幕上左边居中有一个控件，现在要慢慢向右移动 `200dp`，有什么办法呢?
 
-我们可能会创建一个动画，然后 `translationX(px2dp(200))`，所以我们的代码可能是这样的
+    我们可能会创建一个动画，然后 `translationX(px2dp(200))`，所以我们的代码可能是这样的
 
-    child.animate()
+      child.animate()
          .translationX(px2dp(200))
          .start()
          
@@ -34,55 +34,55 @@
     
 - 5、为什么在布局参数改变之前加一行这个就可以有动画呢? 
 
-过渡动画的原理:
+    过渡动画的原理:
 
-    1、两个场景，一个开始场景，一个结束场景，记录场景上的控件的各种参数
-    2、根据参数的变化创建动画
-    3、播放动画
+      1、两个场景，一个开始场景，一个结束场景，记录场景上的控件的各种参数
+      2、根据参数的变化创建动画
+      3、播放动画
     
-对应 Transition 上的关键函数:
+    对应 Transition 上的关键函数:
 
-    1、 捕获并记录对应属性
-        captureStartValues 和 captureEndValues
-    2、 基于捕获的值创建对应动画，并播放动画
-        createAnimator 和 playTransition
+      1、 捕获并记录对应属性
+            captureStartValues 和 captureEndValues
+      2、 基于捕获的值创建对应动画，并播放动画
+            createAnimator 和 playTransition
     
 - 6、如果动画比较复杂，那么我们需要改变的参数就非常多，那么代码就会很多，太麻烦了，所以过渡动画还有另一种使用方式: `TransitionManager.go(scene)`
 
-我们可以用两个 `xml` 表示开始和结束场景，在两个场景之间进行切换
+    我们可以用两个 `xml` 表示开始和结束场景，在两个场景之间进行切换
 
-但是 `go` 函数需要我们在每次场景切换之后都要重新绑定数据，这是因为每次都把子控件全部移除掉了
+    但是 `go` 函数需要我们在每次场景切换之后都要重新绑定数据，这是因为每次都把子控件全部移除掉了
 
 - 7、有没有什么办法可以不用重新绑定数据，还能在两个场景进行切换呢
 
-当然是有的，只要父容器是 `ConstraintLayout`, 就可以使用 `ConstraintSet` 来做过渡动画
+    当然是有的，只要父容器是 `ConstraintLayout`, 就可以使用 `ConstraintSet` 来做过渡动画
 
-    TransitionManager.beginDelayedTransition(root)
-    val constraintSet = ConstraintSet().apply {
-        clone(this@ConstraintSetActivity, R.layout.layout_constraintset_end)
-    }
-    constraintSet.applyTo(root)
+      TransitionManager.beginDelayedTransition(root)
+      val constraintSet = ConstraintSet().apply {
+          clone(this@ConstraintSetActivity, R.layout.layout_constraintset_end)
+      }
+      constraintSet.applyTo(root)
     
 - 8、这样就可以完成过渡动画，并且不用重新绑定数据，但是这样就完美了吗? 
 
-当然不是的，约束布局还不够好
+    当然不是的，约束布局还不够好
 
-    首先它不能停留在任意位置，动画一旦开始就必须等它结束，不能停留在任意位置
+      首先它不能停留在任意位置，动画一旦开始就必须等它结束，不能停留在任意位置
     
-    其次它不支持触摸反馈，不能让动画跟着手指的滑动慢慢进行
+      其次它不支持触摸反馈，不能让动画跟着手指的滑动慢慢进行
     
-    第三个是有布局重复，布局切换的套路代码不得不重复写一遍，还要同时管理两个xml文件，
-    而且两个文件都是在layout文件夹下，第二个布局只是为了做动画用的，并不是真正的布局，没有放到专门管理动画的文件夹下
+      第三个是有布局重复，布局切换的套路代码不得不重复写一遍，还要同时管理两个xml文件，
+      而且两个文件都是在layout文件夹下，第二个布局只是为了做动画用的，并不是真正的布局，没有放到专门管理动画的文件夹下
     
 - 9、为了解决上面的问题，就引入了 `MotionLayout`
 
-`MotionLayout` 是 `ConstraintLayout` 的子类，所以约束布局能做的事情它都能做
+    `MotionLayout` 是 `ConstraintLayout` 的子类，所以约束布局能做的事情它都能做
 
-它的属性只有一个: `app:layoutDescription="@xml/motion_sample"`
+    它的属性只有一个: `app:layoutDescription="@xml/motion_sample"`
 
-创建一个文件: `res/xml/motion_sample.xml`, 根节点是 `MotionScene`
+    创建一个文件: `res/xml/motion_sample.xml`, 根节点是 `MotionScene`
 
-这样就有了一个布局文件和一个 `MotionScene` 文件，一个负责管理布局，一个专门用来管理动画
+    这样就有了一个布局文件和一个 `MotionScene` 文件，一个负责管理布局，一个专门用来管理动画
 
 - 10、`MotionScene` 属性
 
@@ -118,7 +118,8 @@
     动画变换
         做旋转，位移，缩放，海拔等属性
     自定义属性
-        attributeName 会加上 set/get 反射找到真正的函数名，比如 backgroundColor 就会调用 setBackgroundColor() 函数
+        attributeName 会加上 set/get 反射找到真正的函数名
+        比如 backgroundColor 就会调用 setBackgroundColor() 函数
         custom(xxx)Value 对应属性的数据类型
     特定的属性
         visibility 、 alpha 等属性
@@ -184,6 +185,7 @@
         jumpToEnd/Start 没有动画直接到结束/起始状态
            
 ##### KeyPositionSet
+
 - `app:motionTarget`  目标对象ID
 - `app:framePosition` 百分比 (0 - 100)
 
@@ -215,6 +217,7 @@
 
       （0， 0）为父容器左上⻆
       （1， 1）为父容器右下⻆
+      
 - `deltaRelative`
 
       （0， 0）为起始控件中心
@@ -224,6 +227,7 @@
 
       （0， 0）为起始控件中心
       （1， 0）为结束控件中心
+      以 X 轴的长度顺时针旋转90度，画相同的长度就是Y轴
       
 ##### KeyCycle 和 KeyTimeCycle
 

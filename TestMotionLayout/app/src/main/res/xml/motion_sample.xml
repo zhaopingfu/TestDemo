@@ -5,12 +5,56 @@
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@id/start"
-        app:duration="1000"
+        app:duration="1500"
         app:motionInterpolator="bounce">
 
-        <OnClick
-            app:clickAction="toggle"
-            app:targetId="@id/view" />
+        <!--        <OnClick-->
+        <!--            app:clickAction="toggle"-->
+        <!--            app:targetId="@id/view" />-->
+
+        <OnSwipe
+            app:dragDirection="dragRight"
+            app:touchRegionId="@id/view" />
+        <KeyFrameSet>
+
+            <!--            <KeyAttribute-->
+            <!--                android:rotation="180"-->
+            <!--                android:scaleX="2"-->
+            <!--                android:scaleY="2"-->
+            <!--                app:framePosition="50"-->
+            <!--                app:motionTarget="@id/view">-->
+            <!--&lt;!&ndash;                <CustomAttribute&ndash;&gt;-->
+            <!--&lt;!&ndash;                    app:attributeName="backgroundColor"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    app:customColorValue="#000000" />&ndash;&gt;-->
+            <!--            </KeyAttribute>-->
+
+            <!--            <KeyPosition-->
+            <!--                app:curveFit="spline"-->
+            <!--                app:framePosition="50"-->
+            <!--                app:keyPositionType="deltaRelative"-->
+            <!--                app:motionTarget="@id/view"-->
+            <!--                app:percentX="0.5"-->
+            <!--                app:percentY="0.0" />-->
+
+            <KeyCycle
+                android:rotation="0"
+                app:framePosition="0"
+                app:motionTarget="@id/view"
+                app:wavePeriod="0"
+                app:waveShape="sin" />
+            <KeyCycle
+                android:rotation="45"
+                app:framePosition="50"
+                app:motionTarget="@id/view"
+                app:wavePeriod="1"
+                app:waveShape="sin" />
+            <KeyCycle
+                android:rotation="0"
+                app:framePosition="100"
+                app:motionTarget="@id/view"
+                app:wavePeriod="0"
+                app:waveShape="sin" />
+        </KeyFrameSet>
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
@@ -18,19 +62,22 @@
             android:id="@+id/view"
             android:background="@color/colorPrimary">
 
-            <Motion
-                app:pathMotionArc="startHorizontal"
-                app:transitionEasing="linear" />
+            <!--            <Motion-->
+            <!--                app:pathMotionArc="startVertical"-->
+            <!--                app:transitionEasing="linear" />-->
 
-            <CustomAttribute
-                app:attributeName="backgroundColor"
-                app:customColorValue="@color/colorPrimary" />
+            <!--            <CustomAttribute-->
+            <!--                app:attributeName="backgroundColor"-->
+            <!--                app:customColorValue="@color/colorPrimary" />-->
 
             <Layout
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <!--            <PropertySet android:alpha="1" />-->
         </Constraint>
     </ConstraintSet>
 
@@ -47,7 +94,12 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Transform android:rotation="45" />
+
+            <!--            <PropertySet android:alpha="0.1" />-->
         </Constraint>
     </ConstraintSet>
 </MotionScene>
