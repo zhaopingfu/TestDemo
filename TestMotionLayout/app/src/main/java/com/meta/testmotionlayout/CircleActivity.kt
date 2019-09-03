@@ -21,7 +21,7 @@ class CircleActivity : AppCompatActivity() {
             interpolator = LinearInterpolator()
             addUpdateListener {
                 val params = earth.layoutParams as ConstraintLayout.LayoutParams
-                params.circleAngle = 45 + it.animatedFraction * 360
+                params.circleAngle = 45f + it.animatedFraction * 360f
                 moon.requestLayout()
             }
             start()
@@ -34,7 +34,7 @@ class CircleActivity : AppCompatActivity() {
             interpolator = LinearInterpolator()
             addUpdateListener {
                 val params = moon.layoutParams as ConstraintLayout.LayoutParams
-                params.circleAngle = 270 + it.animatedFraction * 360
+                params.circleAngle = 270f + it.animatedFraction * 360f
                 moon.requestLayout()
             }
             start()
