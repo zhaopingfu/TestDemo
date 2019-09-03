@@ -72,6 +72,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(it.context, TestKeyPositionActivity::class.java))
         }
 
+        btn_youtube.setOnClickListener {
+            startActivity(Intent(this@MainActivity, YoutubeActivity::class.java))
+        }
+
+        btn_motion_layout.setOnClickListener {
+            startActivity(Intent(this@MainActivity, TestMotionLayoutActivity::class.java))
+        }
+
         btn_jump_with_coordinatorlayout_activity.setOnClickListener {
             startActivity(Intent(it.context, WithCoordinatorLayoutActivity::class.java))
         }

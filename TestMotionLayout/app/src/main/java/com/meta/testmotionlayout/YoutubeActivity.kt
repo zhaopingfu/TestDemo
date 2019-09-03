@@ -1,4 +1,4 @@
-package com.meta.motionlayout_sample
+package com.meta.testmotionlayout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

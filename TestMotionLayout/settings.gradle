@@ -1,1 +1,1 @@
-include ':app', ':motionlayout_sample'
+include ':app'

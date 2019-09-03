@@ -11,7 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".TestKeyPositionActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -70,6 +69,14 @@
         <activity
             android:name=".SampleActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".TestMotionLayoutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".YoutubeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TestKeyPositionActivity"
+            android:screenOrientation="portrait" />
     </application>
-
 </manifest>
