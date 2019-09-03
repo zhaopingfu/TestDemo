@@ -68,6 +68,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(it.context, SampleActivity::class.java))
         }
 
+        btn_jump_key_position_activity.setOnClickListener {
+            startActivity(Intent(it.context, TestKeyPositionActivity::class.java))
+        }
+
         btn_jump_with_coordinatorlayout_activity.setOnClickListener {
             startActivity(Intent(it.context, WithCoordinatorLayoutActivity::class.java))
         }
