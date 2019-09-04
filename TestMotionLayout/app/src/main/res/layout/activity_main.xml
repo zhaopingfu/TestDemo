@@ -133,6 +133,14 @@
             tools:ignore="HardcodedText" />
 
         <Button
+            android:id="@+id/btn_jump_flip_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Flip"
+            android:textAllCaps="false"
+            tools:ignore="HardcodedText" />
+
+        <Button
             android:id="@+id/btn_jump_with_coordinatorlayout_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

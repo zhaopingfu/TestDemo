@@ -80,6 +80,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this@MainActivity, TestMotionLayoutActivity::class.java))
         }
 
+        btn_jump_flip_activity.setOnClickListener {
+            startActivity(Intent(this@MainActivity, FlipActivity::class.java))
+        }
+
         btn_jump_with_coordinatorlayout_activity.setOnClickListener {
             startActivity(Intent(it.context, WithCoordinatorLayoutActivity::class.java))
         }

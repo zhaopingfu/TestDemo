@@ -78,5 +78,9 @@
         <activity
             android:name=".TestKeyPositionActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".FlipActivity"
+            android:screenOrientation="portrait" />
     </application>
+
 </manifest>
