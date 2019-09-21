@@ -1,0 +1,123 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "com.meta.testgradletaskorder"
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            storeFile file('app.jks')
+            storePassword '123456'
+            keyAlias 'testAlias'
+            keyPassword '123456'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "app"
+    productFlavors {
+        dev {
+            dimension "app"
+        }
+        stub {
+            dimension "app"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+/**
+ * 热修复相关的文件拷贝
+ */
+project.afterEvaluate {
+    // preBuild 任务执行之前执行 copyPreCommitFile
+    preBuild.dependsOn 'copyPreCommitFile'
+    // 打包成功之后执行复制任务
+    if (project.plugins.hasPlugin('kotlin-android')) {
+        project.android.applicationVariants.all { com.android.build.gradle.api.BaseVariant variant ->
+            def taskVariantName = "${variant.flavorName.capitalize()}${variant.buildType.name.capitalize()}"
+            def taskName = "assemble$taskVariantName"
+            def task = project.tasks.findByName(taskName)
+            if (null != task) {
+                task.doLast {
+                    def basePath = "${variant.flavorName}/${variant.buildType.name}"
+                    def apkDir = new File("${rootDir.absolutePath}/app/build/outputs/apk/$basePath/")
+                    if (apkDir.exists() && apkDir.isDirectory()) {
+                        def apkDirList = apkDir.listFiles(new FilenameFilter() {
+                            @Override
+                            boolean accept(File file, String s) {
+                                return s.endsWith(".apk")
+                            }
+                        })
+                        if (null != apkDirList && apkDirList.size() > 0) {
+                            def apkPath = apkDirList.getAt(0).absolutePath
+                            def mappingPath = "${rootDir.absolutePath}/app/build/outputs/mapping/$basePath/mapping.txt"
+                            def robustMethodsMapPath = "${rootDir.absolutePath}/app/build/outputs/robust/methodsMap.robust"
+
+                            // 目标文件夹
+                            def targetPath = "${rootDir.absolutePath}/app/robust/"
+
+                            // 复制文件
+                            copyFile(apkPath, "$targetPath/${new File(apkPath).name}")
+                            copyFile(mappingPath, "$targetPath/${new File(mappingPath).name}")
+                            copyFile(robustMethodsMapPath, "$targetPath/${new File(robustMethodsMapPath).name}")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * 复制文件
+ */
+void copyFile(String src, String dsc) {
+    def srcFile = new File(src)
+    if (srcFile.exists()) {
+        def desFile = new File(dsc)
+        if (desFile.exists()) {
+            desFile.delete()
+        } else {
+            desFile.parentFile.mkdirs()
+            desFile.createNewFile()
+        }
+        desFile.setBytes(srcFile.getBytes())
+    }
+}
+
+/**
+ * 将 pre-commit 复制到 .git/hooks/ 目录下
+ */
+task copyPreCommitFile(type: Copy) {
+    from('./pre-commit')
+    into('../.git/hooks')
+}

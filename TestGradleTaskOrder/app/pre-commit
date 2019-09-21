@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# 确保中文日志显示正常
+export LANG="zh_CN.UTF-8"
+
+echo "开始检测"
+
+# 获取暂存区 .java 结尾的文件
+STAGE_FILES=$(git diff --cached --name-only --diff-filter=ACM -- '*.java')
+
+annotationAdd='@Add'
+annotationAddPackageImport='import com.meituan.robust.patch.annotaion.Add;'
+annotationModify='@Modify'
+annotationModifyPackageImport='import com.meituan.robust.patch.annotaion.Modify;'
+
+for file in ${STAGE_FILES[@]}
+do
+	if cat $file | grep $annotationAdd>/dev/null
+	then
+		echo "$file 发现 $annotationAdd 请删除后再提交"
+		exit 1
+	elif cat $file | grep "$annotationAddPackageImport">/dev/null
+	then
+		echo "$file 发现 $annotationAddPackageImport 请删除后再提交"
+		exit 1
+	elif cat $file | grep $annotationModify>/dev/null
+	then
+		echo "$file 发现 $annotationModify 请删除后再提交"
+		exit 1
+	elif cat $file | grep "$annotationModifyPackageImport">/dev/null
+	then
+		echo "$file 发现 $annotationModifyPackageImport 请删除后再提交"
+		exit 1
+	fi
+done
+
+exit 0
