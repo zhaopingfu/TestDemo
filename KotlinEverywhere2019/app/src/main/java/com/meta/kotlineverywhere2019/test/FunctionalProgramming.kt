@@ -1,4 +1,4 @@
-package com.meta.kotlineverywhere2019
+package com.meta.kotlineverywhere2019.test
 
 /**
  * 函数式编程
