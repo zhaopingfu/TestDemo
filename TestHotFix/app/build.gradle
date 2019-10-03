@@ -7,10 +7,11 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.testhotfix"
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -30,4 +31,123 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // https://mvnrepository.com/artifact/org.ow2.asm/asm
+    implementation 'org.ow2.asm:asm:7.2'
+}
+
+afterEvaluate {
+    android.applicationVariants.all { variant ->
+        // 获得: debug/release
+        String variantName = variant.getName()
+        // 首字母大写
+        String capitalizeName = variantName.capitalize()
+        println capitalizeName
+        // 获取打包时jar和class打包成dex 的任务
+        Task dexTask = project.tasks.findByName("transformClassesWithDexBuilderFor$capitalizeName")
+        // 在打包之前插桩
+        dexTask.doFirst {
+            // 任务的输入，也就是 class 和 jar
+            Set<File> files = dexTask.inputs.files.files
+            for (File file : files) {
+                String filePath = file.absolutePath
+                if (filePath.endsWith(".jar")) {
+                    processJar(file)
+                } else if (filePath.endsWith(".class")) {
+                    // processClass(variant.getDirName(), file)
+                    processClass("classes", file)
+                }
+            }
+        }
+    }
+}
+
+static boolean isAndroidClass(String filePath) {
+    return filePath.startsWith("android") ||
+            filePath.startsWith("androidx")
+}
+
+import java.util.jar.JarEntry
+import java.util.jar.JarFile
+import java.util.jar.JarOutputStream
+import org.objectweb.asm.ClassReader
+import org.objectweb.asm.ClassWriter
+import org.objectweb.asm.ClassVisitor
+import org.objectweb.asm.MethodVisitor
+import org.objectweb.asm.Opcodes
+import org.objectweb.asm.Type
+
+static byte[] referHackWhenInit(InputStream inputStream) throws IOException {
+    ClassReader cr = new ClassReader(inputStream)
+    ClassWriter cw = new ClassWriter(cr, 0)
+    ClassVisitor cv = new ClassVisitor(Opcodes.ASM5, cw) {
+        @Override
+        MethodVisitor visitMethod(int access, final String name, String desc,
+                                  String signature, String[] exceptions) {
+            MethodVisitor mv = super.visitMethod(access, name, desc, signature, exceptions)
+            mv = new MethodVisitor(Opcodes.ASM5, mv) {
+                @Override
+                void visitInsn(int opcode) {
+                    // 在构造方法中插入 AntilazyLoad 引用
+                    if ("<init>".equals(name) && opcode == Opcodes.RETURN) {
+                        super.visitLdcInsn(Type.getType("Lcom/example/hack/AntilazyLoad;"))
+                    }
+                    super.visitInsn(opcode)
+                }
+            }
+            return mv
+        }
+    }
+    cr.accept(cv, 0)
+    return cw.toByteArray()
+}
+
+static void processClass(String dirName, File file) {
+    String filePath = file.absolutePath
+    // 这里的filePath包含了目录+包名+类名，所以去掉目录
+    String className = filePath.split(dirName)[1].substring(1)
+    // application 或者android support不管
+    if (isAndroidClass(className) ||
+            className.startsWith("com\\example\\testhotfix\\MyApplication") ||
+            className.startsWith("com\\example\\testhotfix\\fixmethod")) {
+        return
+    }
+    try {
+        FileInputStream fis = new FileInputStream(filePath)
+        // 执行插桩
+        byte[] byteCode = referHackWhenInit(fis)
+        fis.close()
+
+        FileOutputStream fos = new FileOutputStream(filePath)
+        fos.write(byteCode)
+        fos.close()
+    } catch (Exception e) {
+        e.printStackTrace()
+    }
+}
+
+static void processJar(File file) {
+    try {
+        File bakJar = new File(file.parent, "${file.name}.bak")
+        JarOutputStream jarOutputStream = new JarOutputStream(new FileOutputStream(bakJar))
+
+        JarFile jarFile = new JarFile(file)
+        Enumeration<JarEntry> entries = jarFile.entries()
+        while (entries.hasMoreElements()) {
+            JarEntry jarEntry = entries.nextElement()
+
+            jarOutputStream.putNextEntry(new JarEntry(jarEntry.name))
+            InputStream is = jarFile.getInputStream(jarEntry)
+
+            String className = jarEntry.getName()
+            if (className.endsWith(".class")
+                    && !className.startsWith("com/example/testhotfix/MyApplication")
+                    && !isAndroidClass(className)
+                    && !className.startsWith("com/example/testhotfix/fixmethod")) {
+
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace()
+    }
 }

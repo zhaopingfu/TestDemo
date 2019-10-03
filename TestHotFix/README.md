@@ -48,7 +48,7 @@ override fun attachBaseContext(base: Context?) {
 }
 ```
 
-### 问题:
+### 3、问题
 
 1. 为什么java要使用双亲委托这种机制？
 
@@ -63,4 +63,45 @@ override fun attachBaseContext(base: Context?) {
 Class.forName 不仅会加载类，还会走初始化流程。比如在类里面有静态代码块，也是会执行到的。
 
 ClassLoader.loadClass 只是把类加载到类加载器，而不会走类的初始化流程。
+```
+
+3. 版本兼容问题
+
+需要兼容的就是反射调用的方法，各版本可能不同
+
+[Tinker兼容代码](https://github.com/Tencent/tinker/blob/dev/tinker-android/tinker-android-loader/src/main/java/com/tencent/tinker/loader/SystemClassLoaderAdder.java)
+
+```
+9.0: private static Element[] makeDexElements(List<File> files, File optimizedDirectory,List<IOException> suppressedExceptions, ClassLoader loader) 
+
+8.0: private static Element[] makeDexElements(List<File> files, File optimizedDirectory,List<IOException> suppressedExceptions, ClassLoader loader) 
+
+7.0: private static Element[] makeDexElements(List<File> files, File optimizedDirectory,List<IOException> suppressedExceptions,ClassLoader loader) 
+
+6.0: private static Element[] makePathElements(List<File> files, File optimizedDirectory,List<IOException> suppressedExceptions) 
+
+5.0: private static Element[] makeDexElements(ArrayList<File> files, File optimizedDirectory,ArrayList<IOException> suppressedExceptions) 
+
+4.4: private static Element[] makeDexElements(ArrayList<File> files, File optimizedDirectory,ArrayList<IOException> suppressedExceptions) 
+
+4.3:  private static Element[] makeDexElements(ArrayList<File> files,File optimizedDirectory) {
+
+4.2: private static Element[] makeDexElements(ArrayList<File> files,File optimizedDirectory) 
+
+4.1: private static Element[] makeDexElements(ArrayList<File> files,File optimizedDirectory) 
+```
+
+4. `java.lang.IllegalAccessError: Class ref in pre-verified class resolved to unexpected implementation`
+
+在5.0以下机型会报这个错误，具体原因下面这个链接里面写的很详细了，我就不再重复了
+
+[错误产生原因](https://mp.weixin.qq.com/s?__biz=MzI1MTA1MzM2Nw==&mid=400118620&idx=1&sn=b4fdd5055731290eef12ad0d17f39d4a)
+
+解决方法，避免让类打上 `CLASS_ISPREVERIFIED`
+
+```
+1.生成一个新的单独的dex
+    1.1、 创建一个 JavaLibrary hack，新建一个空的类 AntilazyLoad.java
+    1.2、 make module 会在 /build/libs/ 生成 hack.jar
+    1.3、 将 jar 转为 dex: E:\software\AndroidStudio\SDK\build-tools\29.0.0\dx.bat --dex --output=hack.dex hack.jar
 ```

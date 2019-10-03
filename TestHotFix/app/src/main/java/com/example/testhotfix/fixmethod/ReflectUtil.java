@@ -1,4 +1,4 @@
-package com.example.testhotfix;
+package com.example.testhotfix.fixmethod;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
