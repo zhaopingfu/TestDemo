@@ -10,10 +10,6 @@ public class FixMethodFactory {
 
     @Nullable
     public static FixMethodInterface getFixMethod() {
-        // 7.0
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        // return new FixMethod70Impl();
-        // }
         // 6.0
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return new FixMethod60Impl();

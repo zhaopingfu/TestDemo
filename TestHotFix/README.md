@@ -100,8 +100,171 @@ ClassLoader.loadClass 只是把类加载到类加载器，而不会走类的初�
 解决方法，避免让类打上 `CLASS_ISPREVERIFIED`
 
 ```
-1.生成一个新的单独的dex
-    1.1、 创建一个 JavaLibrary hack，新建一个空的类 AntilazyLoad.java
+1. 生成一个新的单独的dex
+    1.1、 创建一个 JavaLibrary hack，新建一个空的类 com/example/hack/AntilazyLoad.java
     1.2、 make module 会在 /build/libs/ 生成 hack.jar
     1.3、 将 jar 转为 dex: E:\software\AndroidStudio\SDK\build-tools\29.0.0\dx.bat --dex --output=hack.dex hack.jar
+    1.4、 将 hack.dex 放入 app/src/main/assets/
+    
+2. 在 app/build.gradle 中添加以下代码
+
+    dependencies {
+        // https://mvnrepository.com/artifact/org.ow2.asm/asm
+        implementation 'org.ow2.asm:asm:7.2'
+    }
+    
+    afterEvaluate {
+        android.applicationVariants.all { variant ->
+            // 获得: debug/release
+            String variantName = variant.getName()
+            // 首字母大写
+            String capitalizeName = variantName.capitalize()
+            println capitalizeName
+            // 获取打包时jar和class打包成dex 的任务
+            Task dexTask = project.tasks.findByName("transformClassesWithDexBuilderFor$capitalizeName")
+            // 在打包之前插桩
+            dexTask.doFirst {
+                // 任务的输入，也就是 class 和 jar
+                Set<File> files = dexTask.inputs.files.files
+                for (File file : files) {
+                    String filePath = file.absolutePath
+                    if (filePath.endsWith(".jar")) {
+                        processJar(file)
+                    } else if (filePath.endsWith(".class")) {
+                        // processClass(variant.getDirName(), file)
+                        processClass("classes", file)
+                    }
+                }
+            }
+        }
+    }
+    
+    static boolean isAndroidClass(String filePath) {
+        return filePath.startsWith("android") ||
+                filePath.startsWith("androidx")
+    }
+    
+    import java.util.jar.JarEntry
+    import java.util.jar.JarFile
+    import java.util.jar.JarOutputStream
+    import org.objectweb.asm.ClassReader
+    import org.objectweb.asm.ClassWriter
+    import org.objectweb.asm.ClassVisitor
+    import org.objectweb.asm.MethodVisitor
+    import org.objectweb.asm.Opcodes
+    import org.objectweb.asm.Type
+    
+    static byte[] referHackWhenInit(InputStream inputStream) throws IOException {
+        ClassReader cr = new ClassReader(inputStream)
+        ClassWriter cw = new ClassWriter(cr, 0)
+        ClassVisitor cv = new ClassVisitor(Opcodes.ASM5, cw) {
+            @Override
+            MethodVisitor visitMethod(int access, final String name, String desc,
+                                      String signature, String[] exceptions) {
+                MethodVisitor mv = super.visitMethod(access, name, desc, signature, exceptions)
+                mv = new MethodVisitor(Opcodes.ASM5, mv) {
+                    @Override
+                    void visitInsn(int opcode) {
+                        // 在构造方法中插入 AntilazyLoad 引用
+                        if ("<init>".equals(name) && opcode == Opcodes.RETURN) {
+                            super.visitLdcInsn(Type.getType("Lcom/example/hack/AntilazyLoad;"))
+                        }
+                        super.visitInsn(opcode)
+                    }
+                }
+                return mv
+            }
+        }
+        cr.accept(cv, 0)
+        return cw.toByteArray()
+    }
+    
+    static void processClass(String dirName, File file) {
+        String filePath = file.absolutePath
+        // 这里的filePath包含了目录+包名+类名，所以去掉目录
+        String className = filePath.split(dirName)[1].substring(1)
+        // application 或者android support不管
+        if (isAndroidClass(className) ||
+                className.startsWith("com\\example\\testhotfix\\MyApplication") ||
+                className.startsWith("com\\example\\testhotfix\\fixmethod")) {
+            return
+        }
+        try {
+            FileInputStream fis = new FileInputStream(filePath)
+            // 执行插桩
+            byte[] byteCode = referHackWhenInit(fis)
+            fis.close()
+    
+            FileOutputStream fos = new FileOutputStream(filePath)
+            fos.write(byteCode)
+            fos.close()
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+    }
+    
+    static void processJar(File file) {
+        try {
+            File bakJar = new File(file.parent, "${file.name}.bak")
+            JarOutputStream jarOutputStream = new JarOutputStream(new FileOutputStream(bakJar))
+    
+            JarFile jarFile = new JarFile(file)
+            Enumeration<JarEntry> entries = jarFile.entries()
+            while (entries.hasMoreElements()) {
+                JarEntry jarEntry = entries.nextElement()
+    
+                jarOutputStream.putNextEntry(new JarEntry(jarEntry.name))
+                InputStream is = jarFile.getInputStream(jarEntry)
+    
+                String className = jarEntry.getName()
+                if (className.endsWith(".class")
+                        && !className.startsWith("com/example/testhotfix/MyApplication")
+                        && !isAndroidClass(className)
+                        && !className.startsWith("com/example/testhotfix/fixmethod")) {
+    
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+    }
+    
+3、在 application 中加载 hack.dex, 避免 ClassNotFoundException
+    
+    static File getHackDex(Context context) {
+        File hackDir = context.getDir("hack", Context.MODE_PRIVATE);
+        File hackFile = new File(hackDir, "hack.dex");
+        if (hackFile.exists()) {
+            return hackFile;
+        }
+        BufferedInputStream bis = null;
+        BufferedOutputStream bos = null;
+        try {
+            bis = new BufferedInputStream(context.getAssets().open("hack.dex"));
+            bos = new BufferedOutputStream(new FileOutputStream(hackFile));
+            byte[] bytes = new byte[1024];
+            int len;
+            while ((len = bis.read(bytes)) != -1) {
+                bos.write(bytes, 0, len);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != bos) {
+                try {
+                    bos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (null != bis) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return hackFile;
+    }
 ```
