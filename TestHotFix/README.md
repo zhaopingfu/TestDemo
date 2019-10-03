@@ -93,6 +93,8 @@ ClassLoader.loadClass 只是把类加载到类加载器，而不会走类的初�
 
 4. `java.lang.IllegalAccessError: Class ref in pre-verified class resolved to unexpected implementation`
 
+[Demo](https://github.com/zhaopingfu/TestDemo/tree/master/TestHotFix)
+
 在5.0以下机型会报这个错误，具体原因下面这个链接里面写的很详细了，我就不再重复了
 
 [错误产生原因](https://mp.weixin.qq.com/s?__biz=MzI1MTA1MzM2Nw==&mid=400118620&idx=1&sn=b4fdd5055731290eef12ad0d17f39d4a)
@@ -268,3 +270,5 @@ ClassLoader.loadClass 只是把类加载到类加载器，而不会走类的初�
         return hackFile;
     }
 ```
+
+经过测试: 4.4, 5.0, 6.0, 9.0 都可以正常修复
