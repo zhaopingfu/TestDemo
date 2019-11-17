@@ -1,0 +1,228 @@
+package com.zhaopf.testexoplayer
+
+import com.google.gson.Gson
+import java.io.Serializable
+
+val mGson: Gson = Gson()
+
+fun getVideoList(): List<VideoBean> {
+    return mGson.fromJson(VIDEO_DATA, BaseBean::class.java).data
+}
+
+data class BaseBean(val data: List<VideoBean>)
+
+data class VideoBean(
+    val nickname: String?,
+    val title: String?,
+    val description: String?,
+    val portrait: String?,
+    val videoCover: String?,
+    val videoUrl: String?,
+    val duration: Int?,
+    val likeCount: Int?,
+    val commentCount: Int?,
+    val shareCount: Int?,
+    val videoHeight: Int?,
+    val videoWidth: Int?,
+    val isLike: Boolean?,
+    val isFollow: Boolean?
+) : Serializable
+
+val VIDEO_DATA = """
+        {
+    "return_code": 200,
+    "return_msg": null,
+    "data": [
+        {
+            "vid": "shb_SMALL_VIDEO_8701774",
+            "uid": "shb_593356617",
+            "nickname": "食客达人",
+            "title": "食客达人：吃不胖的番茄鸡肉丸子！",
+            "description": "吃不胖的番茄鸡肉丸子！",
+            "portrait": "http://images2.jumei.com/user_avatar/593/356/593356617-200-1568210339.jpg?1568210339",
+            "videoCover": "http://showlive-10012585.image.myqcloud.com/86e83891-695e-4bf3-9f77-a1048ca11844?imageView2/format/jpg",
+            "videoUrl": "http://ccvideo1.shuabaoba.cn/NTkzMzU2NjE3/MTU2NTIyNzQ1MzI1MQ_E_E/NTEwNjAxNg_E_E/NTIzMTg4Lm1wNA_E_E_0_default.mp4",
+            "duration": 23,
+            "likeCount": 200,
+            "commentCount": 1276,
+            "shareCount": 3028,
+            "videoHeight": 1024,
+            "videoWidth": 576,
+            "isLike": true,
+            "isFollow": false,
+            "createTime": 1572015922
+        },
+        {
+            "vid": "shb_SMALL_VIDEO_8701774",
+            "uid": "shb_593356617",
+            "nickname": "大白很爱做饭",
+            "title": "大白很爱做饭：南瓜糯米糍，大家学会了吗",
+            "description": "南瓜糯米糍，大家学会了吗",
+            "portrait": "http://images2.jumei.com/user_avatar/622/114/622114731-200-1568197787.jpg?1568197788",
+            "videoCover": "http://showlive-10012585.image.myqcloud.com/68a140c8-089a-4b64-81e0-2f9068657e67?imageView2/format/jpg",
+            "videoUrl": "http://ccvideo1.shuabaoba.cn/dGVzdA_E_E/MTU2Mzc3OTkzODYyMQ_E_E/Mzk3ODg5OQ_E_E/NTc0MTc3Lm1wNA_E_E.mp4",
+            "duration": 23,
+            "likeCount": 390000,
+            "commentCount": 1276,
+            "shareCount": 3028,
+            "videoHeight": 1024,
+            "videoWidth": 576,
+            "isLike": true,
+            "isFollow": false,
+            "createTime": 1572015922
+        },
+        {
+            "vid": "shb_SMALL_VIDEO_8701774",
+            "uid": "shb_593356617",
+            "nickname": "暴走职场君",
+            "title": "暴走职场君：缘分这东西，半分不由人！",
+            "description": "缘分这东西，半分不由人！",
+            "portrait": "http://images2.jumei.com/user_avatar/396/501/396501526-200-1552028737.jpg?1552028737",
+            "videoCover": "http://showlive-10012585.image.myqcloud.com/2245c801-d3ad-4316-a409-bc564138f09d?imageView2/format/jpg",
+            "videoUrl": "http://ccvideo1.shuabaoba.cn/ZGVmYXVsdFVzZXI_E/MTU2ODYxOTQ5NTMyOQ_E_E/NzcyMDcyNQ_E_E/NzYwMTAxLm1wNA_E_E_0_default.mp4",
+            "duration": 23,
+            "likeCount": 390000,
+            "commentCount": 1276,
+            "shareCount": 3028,
+            "videoHeight": 1024,
+            "videoWidth": 576,
+            "isLike": true,
+            "isFollow": false,
+            "createTime": 1572015922
+        },
+        {
+            "vid": "shb_SMALL_VIDEO_8701774",
+            "uid": "shb_593356617",
+            "nickname": "非凡娱乐",
+            "title": "非凡娱乐：angelababy黄晓明同框同台，两人结婚已四年而小海绵也已2岁。被屡传分手，你们看好这对娱乐圈夫妻吗？【关注我】",
+            "description": "angelababy黄晓明同框同台，两人结婚已四年而小海绵也已2岁。被屡传分手，你们看好这对娱乐圈夫妻吗？【关注我】",
+            "portrait": "http://images2.jumei.com/user_avatar/677/138/677138721-200-1567666359.jpg?1567666360?1568115437",
+            "videoCover": "http://showlive-10012585.image.myqcloud.com/24bbee34-9bf9-47e2-98c3-30aabd9cdd5d?imageView2/format/jpg",
+            "videoUrl": "http://ccvideo1.shuabaoba.cn/dGVzdA_E_E/MTU2NzY4OTM0NTU3Mg_E_E/NDA2ODcyOA_E_E/MTgwNDIubXA0_0_default.mp4",
+            "duration": 23,
+            "likeCount": 390000,
+            "commentCount": 1276,
+            "shareCount": 3028,
+            "videoHeight": 1024,
+            "videoWidth": 576,
+            "isLike": true,
+            "isFollow": false,
+            "createTime": 1572015922
+        },
+        {
+            "vid": "shb_SMALL_VIDEO_8701774",
+            "uid": "shb_593356617",
+            "nickname": "历史冷知识",
+            "title": "历史冷知识：为什么高铁夜间不运行？",
+            "description": "为什么高铁夜间不运行？",
+            "portrait": "http://images2.jumei.com/user_avatar/411/583/411583038-200-1550040549.jpg?1550040550?1565076581",
+            "videoCover": "http://showlive-10012585.image.myqcloud.com/4b4fa7df-35b7-465c-ba34-c514284dc8e7?imageView2/format/jpg",
+            "videoUrl": "http://jmvideo1.shuabaoba.cn/dGVzdA_E_E/MTU2Njc4NjA1ODE5Mg_E_E/NjM1NDk4NTc_E/MjE1MzI0Lm1wNA_E_E_0_default.mp4",
+            "duration": 23,
+            "likeCount": 390000,
+            "commentCount": 1276,
+            "shareCount": 3028,
+            "videoHeight": 1024,
+            "videoWidth": 576,
+            "isLike": true,
+            "isFollow": false,
+            "createTime": 1572015922
+        },
+        {
+            "vid": "shb_SMALL_VIDEO_8701774",
+            "uid": "shb_593356617",
+            "nickname": "娜娜❥1",
+            "title": "娜娜❥1：全网最火🔥隐形针法",
+            "description": "全网最火🔥隐形针法",
+            "portrait": "http://images2.jumei.com/user_avatar/629/149/629149567-200-1563335058.jpg?1563335059?1565591791",
+            "videoCover": "http://showlive-10012585.image.myqcloud.com/c0566cbe-cc1e-403e-b867-03641a14096e?imageView2/format/jpg",
+            "videoUrl": "http://jmvideo1.shuabaoba.cn/dGVzdA_E_E/MTU2ODg4NTA2NzgxNw_E_E/NzkzMzUzOA_E_E/MjQ5NzE5Lm1wNA_E_E_0_default.mp4",
+            "duration": 23,
+            "likeCount": 390000,
+            "commentCount": 1276,
+            "shareCount": 3028,
+            "videoHeight": 1024,
+            "videoWidth": 576,
+            "isLike": true,
+            "isFollow": false,
+            "createTime": 1572015922
+        },
+        {
+            "vid": "shb_SMALL_VIDEO_8701774",
+            "uid": "shb_593356617",
+            "nickname": "叁木大大",
+            "title": "叁木大大：是你先吃的吗？不让你先吃还生气了.",
+            "description": "是你先吃的吗？不让你先吃还生气了.",
+            "portrait": "http://images2.jumei.com/user_avatar/396/468/396468191-200-1568535593.jpg?1568535922",
+            "videoCover": "http://showlive-10012585.image.myqcloud.com/867454f0-03a5-4e6f-b2de-37fc4e969132?imageView2/format/jpg",
+            "videoUrl": "http://jmvideo1.shuabaoba.cn/ZGVmYXVsdFVzZXI_E/MTU2ODc5NjQ1NjE0MQ_E_E/Mzc2MzI3NQ_E_E/NzIzMTQubXA0_0_default.mp4",
+            "duration": 23,
+            "likeCount": 390000,
+            "commentCount": 1276,
+            "shareCount": 3028,
+            "videoHeight": 1024,
+            "videoWidth": 576,
+            "isLike": true,
+            "isFollow": false,
+            "createTime": 1572015922
+        },
+        {
+            "vid": "shb_SMALL_VIDEO_8701774",
+            "uid": "shb_593356617",
+            "nickname": "糖诗　",
+            "title": "糖诗　：能截到算我输",
+            "description": "能截到算我输",
+            "portrait": "http://images2.jumei.com/user_avatar/613/124/613124997-200-1563259875.jpg?1563259875?1564985182",
+            "videoCover": "http://showlive-10012585.image.myqcloud.com/6158c0ed-d0ce-4136-ab08-427d9b6e281b?imageView2/format/jpg",
+            "videoUrl": "http://jmvideo1.shuabaoba.cn/dGVzdA_E_E/MTU2NTU4ODg0MTM4NQ_E_E/MTk1MjczOQ_E_E/MzcxODIxLm1wNA_E_E_0_default.mp4",
+            "duration": 23,
+            "likeCount": 390000,
+            "commentCount": 1276,
+            "shareCount": 3028,
+            "videoHeight": 1024,
+            "videoWidth": 576,
+            "isLike": true,
+            "isFollow": false,
+            "createTime": 1572015922
+        },
+        {
+            "vid": "shb_SMALL_VIDEO_8701774",
+            "uid": "shb_593356617",
+            "nickname": "坐赤道吃冰棍",
+            "title": "坐赤道吃冰棍：这红包抢错地方了吧！",
+            "description": "这红包抢错地方了吧！",
+            "portrait": "http://images2.jumei.com/user_avatar/641/489/641489267-200-1565084349.jpg?1565084349",
+            "videoCover": "http://showlive-10012585.image.myqcloud.com/51693d0f-e820-443c-91a4-33fd8b45600d?imageView2/format/jpg",
+            "videoUrl": "http://jmvideo1.shuabaoba.cn/NjQxNDg5MjY3/MTU2NjQ0ODI0MDY5Mw_E_E/MzMxMjAyODU_E/NDk4NzkwLm1wNA_E_E_0_default.mp4",
+            "duration": 23,
+            "likeCount": 390000,
+            "commentCount": 1276,
+            "shareCount": 3028,
+            "videoHeight": 1024,
+            "videoWidth": 576,
+            "isLike": true,
+            "isFollow": false,
+            "createTime": 1572015922
+        },
+        {
+            "vid": "shb_SMALL_VIDEO_8701774",
+            "uid": "shb_593356617",
+            "nickname": "中意0510",
+            "title": "中意0510：看了止不住眼泪，武警部队蒙眼踢正步，必须赞！",
+            "description": "看了止不住眼泪，武警部队蒙眼踢正步，必须赞！",
+            "portrait": "http://thirdwx.qlogo.cn/mmopen/vi_32/q58U5JfVfhcGyBkXodibKmwRPIbs7x5huMY6wjYnMt8RsgRSEMYvdez8qj8ib5sAVkUpsHxr3ciadSDkHFIqjEeIw/132?1569079517",
+            "videoCover": "http://showlive-10012585.image.myqcloud.com/da021b37-e797-4407-a9db-7b1e6e23c19d?imageView2/format/jpg",
+            "videoUrl": "http://jmvideo1.shuabaoba.cn/NzAwMTkyOTU2/MTU2OTUwMTc3NDMyMA_E_E/MTk5MDE2NA_E_E/NjM1MDQ0Lm1wNA_E_E_0_default.mp4",
+            "duration": 23,
+            "likeCount": 390000,
+            "commentCount": 1276,
+            "shareCount": 3028,
+            "videoHeight": 1024,
+            "videoWidth": 576,
+            "isLike": true,
+            "isFollow": false,
+            "createTime": 1572015922
+        }
+    ]
+}
+    """.trimIndent()
