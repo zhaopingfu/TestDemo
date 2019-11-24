@@ -58,7 +58,3 @@ fun testList() {
     list4.max()
     list4.sum()
 }
-
-fun main(args: Array<String>) {
-
-}

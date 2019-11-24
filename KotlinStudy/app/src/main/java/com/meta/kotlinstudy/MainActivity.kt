@@ -10,7 +10,3 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 }
-
-fun main(args: Array<String>) {
-    println("test")
-}
