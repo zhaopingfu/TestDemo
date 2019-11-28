@@ -3,6 +3,15 @@ package com.meta.kotlinstudy.基础部分
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
+
+/**
+ * Kotlin 中作用域默认是 public,
+ *
+ * 声明类，方法 默认都是 final 的，如果需要让别的类继承或重写，需要加 open 关键字
+ *
+ * 在一个类里面声明另一个类，默认两个类是没有关系的，和 Java 的内部类加了static 一样，如果要变成内部类需要加 inner 关键字
+ */
 
 /**
  * 直接将方法写在文件里面，称为顶层函数，这里不用加public，默认就是public
@@ -29,35 +38,7 @@ import android.widget.ImageView
 fun max(x: Int = 0, y: Int) = if (x > y) x else y
 
 /**
- * Kotlin中的字符串
- */
-val strHello = "Hello"
-val strWorld = "World"
-val strHelloWorld = "$strHello $strWorld"
-val strMultiLine = """Hello
-World
-""".trimMargin()
-
-
-fun testStr() {
-    // ello World
-    println(strHelloWorld.substring(1))
-    // lo World
-    println(strHelloWorld.substringAfter('l'))
-    // d
-    println(strHelloWorld.substringAfterLast('l'))
-    // He
-    println(strHelloWorld.substringBefore("l"))
-    // Hello Wor
-    println(strHelloWorld.substringBeforeLast('l'))
-
-    // Kotlin为String提供了很多的扩展函数，比如各种replace等等
-}
-
-/**
  * 顶层变量，声明变量可以省略类型，可以推断出来
- *
- * 空安全
  */
 
 // 只有get, final
@@ -66,7 +47,6 @@ val name2: String = "Tom"
 val name3: String? = null
 val name4
     get() = "Bob"
-
 
 // 有 set/get
 var age = 20
@@ -91,6 +71,69 @@ fun testField() {
 }
 
 /**
+ * 在Activity中声明变量一般还会用到 lateinit 和 by lazy{}
+ */
+
+// 不可空对象声明的时候需要赋值，但是需要findViewById
+lateinit var tv: TextView
+// 用到的时候才回去new出来这个对象
+val strList by lazy { ArrayList<String>() }
+
+/**
+ * Kotlin中的字符串
+ */
+val strHello = "Hello"
+val strWorld = "World"
+val strHelloWorld = "$strHello $strWorld"
+val strMultiLine = """
+<activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+""".trimMargin()
+
+
+fun testStr() {
+    // ello World
+    println(strHelloWorld.substring(1))
+    // lo World
+    println(strHelloWorld.substringAfter('l'))
+    // d
+    println(strHelloWorld.substringAfterLast('l'))
+    // He
+    println(strHelloWorld.substringBefore("l"))
+    // Hello Wor
+    println(strHelloWorld.substringBeforeLast('l'))
+
+    // Kotlin为String提供了很多的扩展函数，比如各种replace等等
+}
+
+/**
+ * 这里的参数如果不加可见性修饰符就只是作为参数，否则是类的成员
+ *
+ * 如果类里面没有函数，可以省略类的大括号
+ */
+class Person(var name: String?)
+
+/**
+ * 空安全
+ */
+fun testNull(person: Person?) {
+    person ?: doSomething() // 如果person为空做一些事
+    person ?: return // 如果person为空直接返回
+
+    val person2: Person? = null
+    val length = person2?.name?.length ?: 0
+    val length2 = person2?.name?.length ?: getLength()
+}
+
+fun doSomething() {}
+fun getLength() = 0
+
+/**
  * ==: 在 Kotlin 中 == 比较的是值，就相当于java中的equals
  * ===: 比较的是内存地址
  */
@@ -107,13 +150,6 @@ fun testEquals() {
 //fun main(args: Array<String>) {
 //    testEquals()
 //}
-
-/**
- * 这里的参数如果不加可见性修饰符就只是作为参数，否则是类的成员
- *
- * 如果类里面没有函数，可以省略类的大括号
- */
-class Person(private var name: String)
 
 
 /**
@@ -134,17 +170,24 @@ enum class Color(val r: Int, val g: Int, val b: Int) {
     fun rgb() = r + g + b
 }
 
-
-/**
- * 控制语句
- */
-fun testControlStatement(color: Color) {
+fun test类型推断() {
     // Kotlin 中有类型推断
     val view: View? = null
     if (view is ImageView) {
         view.setImageDrawable(ColorDrawable(android.graphics.Color.RED))
     }
 
+    if (view !is TextView) {
+        // 这里不是TextView
+    } else {
+        view.text = "这里是TextView"
+    }
+}
+
+/**
+ * 控制语句
+ */
+fun testControlStatement(color: Color) {
     // Java 中的 switch 被换成了 when
     when (color) {
         Color.RED -> println("red")

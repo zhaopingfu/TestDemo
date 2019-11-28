@@ -1,5 +1,8 @@
 package com.meta.kotlinstudy.基础部分
 
+import android.util.Log
+import android.widget.Toast
+
 fun testArray() {
     // 基础类型的数组要使用 intArrayOf 或者 floatArrayOf 等
 
@@ -57,4 +60,99 @@ fun testList() {
     list4.min()
     list4.max()
     list4.sum()
+}
+
+/**
+ * 扩展方法
+ * 比如一般用到字符串都会写一个StringUtil，这个时候就可以用扩展函数替代
+ *
+ * inline 表示在编译之后会把inline方法里面的内容复制到调用方法的地方
+ */
+inline fun String.show() {
+    Log.d("xxx", "show ${toString()}")
+}
+
+/**
+ * 扩展属性
+ */
+val String.lastChar: Char
+    get() = get(length - 1)
+
+/**
+ * 可变参数: vararg 伪关键字，和 emum 一样
+ */
+fun test(vararg str: String) {
+    val vararg = str[0]
+    str.size
+    println(str.joinToString(","))
+}
+
+/**
+ * 方法默认值
+ */
+fun testFunc(name: String = "", sex: String = "") {
+}
+
+fun testFunc2() {
+    // 这个时候传参默认是会给到name
+    testFunc("男")
+    // 如果想给到sex怎么办呢
+    testFunc(sex = "男")
+
+    // 通过这样指定参数名的方式，可以节省查看方法参数的时间，而且更加规范
+}
+
+/**
+ * 中缀表达式
+ */
+infix fun Int.加(that: Int): Int = this + that
+
+fun testExtensionFunction() {
+    "abc".show()
+    "abc".lastChar
+
+    // 中缀调用 infix: 1 to 1
+    val x = 1 加 1
+}
+
+fun testMap() {
+    val map = mapOf<Int, Int>()
+    val map2 = mapOf(Pair(1, 1), Pair(2, 2))
+    val map3 = mapOf(1 to 1, 2 to 2, "c" to 2)
+
+    map3[1]
+    map3["c"]
+}
+
+data class User(
+    val name: String,
+    val age: Int
+)
+
+fun test析构() {
+    // 从集合析构
+    val xxx = "androidx.recyclerview:recyclerview:1.1.0"
+    val (group, name, version) = xxx.split(":")
+
+    // 从map析构
+    val map = mapOf<Int, Int>(1 to 1, 2 to 2, 3 to 3)
+    for ((k, v) in map) {
+    }
+    map.mapValues {
+    }
+    map.mapValues { (k, v) ->
+    }
+
+    // 从这里析构
+    val (sex, age) = Pair("男", 1)
+    val (a, b, c) = Triple("a", 2, Color.RED)
+
+    // 从对象析构
+    val user = User("name", 20)
+    val (name2, age2) = user
+
+    val userArray = arrayOf<User>()
+    for ((name3, age3) in userArray) {
+
+    }
 }
