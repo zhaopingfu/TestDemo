@@ -115,6 +115,10 @@ fun testStr() {
  * 这里的参数如果不加可见性修饰符就只是作为参数，否则是类的成员
  *
  * 如果类里面没有函数，可以省略类的大括号
+ *
+ * 这里变量访问的时候都是访问的get/set方法
+ *
+ * Person("test").name 实际上是调用的 getName 方法，有点类似 groovy
  */
 class Person(var name: String?)
 
