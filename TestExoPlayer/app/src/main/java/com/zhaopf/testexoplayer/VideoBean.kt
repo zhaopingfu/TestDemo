@@ -41,7 +41,7 @@ val VIDEO_DATA = """
             "description": "吃不胖的番茄鸡肉丸子！",
             "portrait": "http://images2.jumei.com/user_avatar/593/356/593356617-200-1568210339.jpg?1568210339",
             "videoCover": "http://showlive-10012585.image.myqcloud.com/86e83891-695e-4bf3-9f77-a1048ca11844?imageView2/format/jpg",
-            "videoUrl": "http://ccvideo1.shuabaoba.cn/NTkzMzU2NjE3/MTU2NTIyNzQ1MzI1MQ_E_E/NTEwNjAxNg_E_E/NTIzMTg4Lm1wNA_E_E_0_default.mp4",
+            "videoUrl": "https://homevideo.233xyx.com/homevideo/video/short/shb_SMALL_VIDEO_11758294.mp4",
             "duration": 23,
             "likeCount": 200,
             "commentCount": 1276,
