@@ -1,4 +1,4 @@
-package com.meta.kotlineverywhere2019
+package com.meta.kotlinstudy
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -1,6 +1,6 @@
 @file:JvmName("TestKotlin")
 
-package com.meta.kotlineverywhere2019.test
+package com.meta.kotlinstudy.test
 
 import android.app.Activity
 import android.content.Context

@@ -1,4 +1,4 @@
-package com.meta.kotlineverywhere2019.test
+package com.meta.kotlinstudy.test
 
 import java.util.*
 
