@@ -48,6 +48,23 @@ class MainActivity : AppCompatActivity() {
 //                        Log.d(TAG, "onCreate: num: $num")
 //                    }
 //            }
+
+            val flow1 = flow<Int> {
+                while (true) {
+                    delay(5000)
+                    emit(1)
+                }
+            }
+            val flow2 = flow<Int> {
+                while (true) {
+                    delay(5000)
+                    emit(1)
+                }
+            }
+            flow1.zip(flow2) { t1, t2 -> "$t1 $t2" }
+                .collect {
+                    Log.d(TAG, "onCreate: test: $it")
+                }
         }
 
         lifecycleScope.launch {
