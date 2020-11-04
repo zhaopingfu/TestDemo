@@ -3,6 +3,7 @@ import 'package:hello_flutter/custom_paint_route.dart';
 import 'package:hello_flutter/gradient_circular_progress_indicator.dart';
 import 'package:hello_flutter/sample/custom_paint_sample.dart';
 import 'package:hello_flutter/sample/gradient_circular_progress_sample.dart';
+import 'package:hello_flutter/sample/text_field_sample.dart';
 import 'package:hello_flutter/sample/turn_box_sample.dart';
 import 'package:hello_flutter/turn_box.dart';
 import 'package:hello_flutter/text_field.dart';
@@ -94,6 +95,14 @@ class _MyHomePageState extends State<MyHomePage> {
               width: double.infinity,
               height: 50,
               color: Colors.red,
+            ),
+            RaisedButton(
+              child: Text('text field sample'),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return TextFieldSampleRoute();
+                }));
+              },
             ),
             RaisedButton(
               child: Text('turn box sample'),
