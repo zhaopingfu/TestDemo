@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/custom_paint_route.dart';
+import 'package:hello_flutter/event_bus/event_bus_a.dart';
+import 'package:hello_flutter/gesture/both_direction_test_route.dart';
+import 'package:hello_flutter/gesture/gesture_conflict_test.dart';
+import 'package:hello_flutter/gesture/study_drag.dart';
+import 'package:hello_flutter/gesture/study_gesture_detector.dart';
+import 'package:hello_flutter/gesture/study_gesture_recognizer.dart';
+import 'package:hello_flutter/gesture/study_listener.dart';
+import 'package:hello_flutter/gesture/study_scale.dart';
 import 'package:hello_flutter/gradient_circular_progress_indicator.dart';
 import 'package:hello_flutter/sample/custom_paint_sample.dart';
 import 'package:hello_flutter/sample/gradient_circular_progress_sample.dart';
@@ -90,6 +98,70 @@ class _MyHomePageState extends State<MyHomePage> {
                 }));
               },
               child: Text("GradientCircularProgressIndicator"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return StudyListener();
+                }));
+              },
+              child: Text("study listener"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return StudyGestureDetectorRoute();
+                }));
+              },
+              child: Text("study GestureDetector"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return StudyDrag();
+                }));
+              },
+              child: Text("study Drag"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return StudyScaleRoute();
+                }));
+              },
+              child: Text("study scale"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return StudyGestureRecognizer();
+                }));
+              },
+              child: Text("study gesture recognizer"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return BothDirectionTestRoute();
+                }));
+              },
+              child: Text("Both Direction Test"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return GestureConflictTestRoute();
+                }));
+              },
+              child: Text("Gesture Conflict Test"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return EventBusA();
+                }));
+              },
+              child: Text("Event bus"),
             ),
             Container(
               width: double.infinity,

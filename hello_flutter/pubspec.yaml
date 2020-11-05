@@ -17,6 +17,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/test_scale.jpg
+    - assets/test_scale2.jpg
   module:
     androidX: true
     androidPackage: com.zhaopf.hello_flutter
