@@ -5,7 +5,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenResumed
-import kotlinx.android.synthetic.main.activity_main.*
+import coil.load
+import com.meta.kotlinstudy.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.produce
@@ -15,6 +16,8 @@ class MainActivity : AppCompatActivity() {
 
     private val TAG = "MainActivity"
 
+    private lateinit var binding: ActivityMainBinding
+
     private val mFactory by lazy { MainViewModelFactory("11111111") }
 
     private val scope = MainScope()
@@ -22,7 +25,10 @@ class MainActivity : AppCompatActivity() {
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.ivTest.load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606727167909&di=7694452bf754d33e6e38a634aeaa80a4&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F13%2F41%2F01300000201800122190411861466.jpg")
 
         // testViewModel()
 
@@ -31,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "onCreate: whenResumed")
                 val one = async(start = CoroutineStart.LAZY) { getResult(20) }
                 val two = async(start = CoroutineStart.LAZY) { getResult(40) }
-                tv_test.text = (one.await() + two.await()).toString()
+                binding.tvTest.text = (one.await() + two.await()).toString()
             }
         }
 
