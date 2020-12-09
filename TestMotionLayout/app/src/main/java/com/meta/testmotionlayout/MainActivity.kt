@@ -4,91 +4,94 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.meta.testmotionlayout.circular_reveal_helper.CircularRevealActivity
+import com.meta.testmotionlayout.databinding.ActivityMainBinding
 import com.meta.testmotionlayout.fly_in_helper.FlyInActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        btn_jump_circle_activity.setOnClickListener {
+        binding.btnJumpCircleActivity.setOnClickListener {
             startActivity(Intent(it.context, CircleActivity::class.java))
         }
 
-        btn_jump_group_activity.setOnClickListener {
+        binding.btnJumpGroupActivity.setOnClickListener {
             startActivity(Intent(it.context, GroupActivity::class.java))
         }
 
-        btn_jump_layer_activity.setOnClickListener {
+        binding.btnJumpLayerActivity.setOnClickListener {
             startActivity(Intent(it.context, LayerActivity::class.java))
         }
 
-        btn_jump_barrier_activity.setOnClickListener {
+        binding.btnJumpBarrierActivity.setOnClickListener {
             startActivity(Intent(it.context, BarrierActivity::class.java))
         }
 
-        btn_jump_circular_reveal_activity.setOnClickListener {
+        binding.btnJumpCircularRevealActivity.setOnClickListener {
             startActivity(Intent(it.context, CircularRevealActivity::class.java))
         }
 
-        btn_jump_fly_in_activity.setOnClickListener {
+        binding.btnJumpFlyInActivity.setOnClickListener {
             startActivity(Intent(it.context, FlyInActivity::class.java))
         }
 
-        btn_jump_placeholder_activity.setOnClickListener {
+        binding.btnJumpPlaceholderActivity.setOnClickListener {
             startActivity(Intent(it.context, PlaceHolderActivity::class.java))
         }
 
-        btn_jump_constraintset_activity.setOnClickListener {
+        binding.btnJumpConstraintsetActivity.setOnClickListener {
             startActivity(Intent(it.context, ConstraintSetActivity::class.java))
         }
-        btn_jump_constraintset2_activity.setOnClickListener {
+        binding.btnJumpConstraintset2Activity.setOnClickListener {
             startActivity(Intent(it.context, ConstraintSet2Activity::class.java))
         }
 
-        btn_jump_flow_activity.setOnClickListener {
+        binding.btnJumpFlowActivity.setOnClickListener {
             startActivity(Intent(it.context, FlowActivity::class.java))
         }
 
-        btn_jump_object_animator_activity.setOnClickListener {
+        binding.btnJumpObjectAnimatorActivity.setOnClickListener {
             startActivity(Intent(it.context, ObjectAnimatorActivity::class.java))
         }
 
-        btn_jump_go_activity.setOnClickListener {
+        binding.btnJumpGoActivity.setOnClickListener {
             startActivity(Intent(it.context, GoActivity::class.java))
         }
 
-        btn_jump_motionlayout_activity.setOnClickListener {
+        binding.btnJumpMotionlayoutActivity.setOnClickListener {
             startActivity(Intent(it.context, MotionLayoutActivity::class.java))
         }
 
-        btn_jump_sample_activity.setOnClickListener {
+        binding.btnJumpSampleActivity.setOnClickListener {
             startActivity(Intent(it.context, SampleActivity::class.java))
         }
 
-        btn_jump_key_position_activity.setOnClickListener {
+        binding.btnJumpKeyPositionActivity.setOnClickListener {
             startActivity(Intent(it.context, TestKeyPositionActivity::class.java))
         }
 
-        btn_youtube.setOnClickListener {
+        binding.btnYoutube.setOnClickListener {
             startActivity(Intent(this@MainActivity, YoutubeActivity::class.java))
         }
 
-        btn_motion_layout.setOnClickListener {
+        binding.btnMotionLayout.setOnClickListener {
             startActivity(Intent(this@MainActivity, TestMotionLayoutActivity::class.java))
         }
 
-        btn_jump_flip_activity.setOnClickListener {
+        binding.btnJumpFlipActivity.setOnClickListener {
             startActivity(Intent(this@MainActivity, FlipActivity::class.java))
         }
 
-        btn_jump_with_coordinatorlayout_activity.setOnClickListener {
+        binding.btnJumpWithCoordinatorlayoutActivity.setOnClickListener {
             startActivity(Intent(it.context, WithCoordinatorLayoutActivity::class.java))
         }
 
-        btn_jump_with_drawerlayout_activity.setOnClickListener {
+        binding.btnJumpWithDrawerlayoutActivity.setOnClickListener {
             startActivity(Intent(it.context, WithDrawerLayoutActivity::class.java))
         }
     }

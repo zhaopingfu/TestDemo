@@ -3,16 +3,18 @@ package com.meta.testmotionlayout
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.appbar.AppBarLayout
-import kotlinx.android.synthetic.main.activity_with_coordinator_layout.*
+import com.meta.testmotionlayout.databinding.ActivityWithCoordinatorLayoutBinding
 
 class WithCoordinatorLayoutActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_with_coordinator_layout)
+        val binding = ActivityWithCoordinatorLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        app_bar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            motion_layout.progress = -verticalOffset / appBarLayout.totalScrollRange.toFloat()
+        binding.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            binding.motionLayout.progress =
+                -verticalOffset / appBarLayout.totalScrollRange.toFloat()
         })
     }
 }

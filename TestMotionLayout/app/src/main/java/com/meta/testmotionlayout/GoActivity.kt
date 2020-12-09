@@ -8,15 +8,17 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_go.*
+import com.meta.testmotionlayout.databinding.ActivityGoBinding
 
 class GoActivity : AppCompatActivity(), View.OnClickListener {
 
     private var toggle = true
+    private lateinit var binding: ActivityGoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_go)
+        binding = ActivityGoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         bindData()
     }
 
@@ -29,8 +31,8 @@ class GoActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
-        val startScene = Scene.getSceneForLayout(root, R.layout.layout_go_start, this)
-        val endScene = Scene.getSceneForLayout(root, R.layout.layout_go_end, this)
+        val startScene = Scene.getSceneForLayout(binding.root, R.layout.layout_go_start, this)
+        val endScene = Scene.getSceneForLayout(binding.root, R.layout.layout_go_end, this)
         if (toggle) {
             TransitionManager.go(endScene)
         } else {

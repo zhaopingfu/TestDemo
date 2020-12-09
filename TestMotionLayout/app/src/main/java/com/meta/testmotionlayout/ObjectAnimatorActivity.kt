@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.android.synthetic.main.activity_object_animator.*
+import com.meta.testmotionlayout.databinding.ActivityObjectAnimatorBinding
 
 class ObjectAnimatorActivity : AppCompatActivity() {
 
@@ -15,9 +15,10 @@ class ObjectAnimatorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_object_animator)
+        val binding = ActivityObjectAnimatorBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        view.setOnClickListener { child ->
+        binding.view.setOnClickListener { child ->
             TransitionManager.beginDelayedTransition(child.parent as ViewGroup)
             val viewGroup = child.parent as ViewGroup
             if (viewGroup is FrameLayout) {

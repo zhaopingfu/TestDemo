@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.android.synthetic.main.activity_circle.*
+import com.meta.testmotionlayout.databinding.ActivityCircleBinding
 
 class CircleActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityCircleBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_circle)
+        binding = ActivityCircleBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // earth
         ObjectAnimator.ofFloat(0f, 1f).apply {
@@ -20,9 +23,9 @@ class CircleActivity : AppCompatActivity() {
             repeatCount = ValueAnimator.INFINITE
             interpolator = LinearInterpolator()
             addUpdateListener {
-                val params = earth.layoutParams as ConstraintLayout.LayoutParams
+                val params = binding.earth.layoutParams as ConstraintLayout.LayoutParams
                 params.circleAngle = 45f + it.animatedFraction * 360f
-                moon.requestLayout()
+                binding.moon.requestLayout()
             }
             start()
         }
@@ -33,9 +36,9 @@ class CircleActivity : AppCompatActivity() {
             repeatCount = ValueAnimator.INFINITE
             interpolator = LinearInterpolator()
             addUpdateListener {
-                val params = moon.layoutParams as ConstraintLayout.LayoutParams
+                val params = binding.moon.layoutParams as ConstraintLayout.LayoutParams
                 params.circleAngle = 270f + it.animatedFraction * 360f
-                moon.requestLayout()
+                binding.moon.requestLayout()
             }
             start()
         }

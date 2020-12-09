@@ -2,16 +2,17 @@ package com.meta.testmotionlayout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.layout_constraintset_start2.*
+import com.meta.testmotionlayout.databinding.ActivityMotionLayoutBinding
 
 class MotionLayoutActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_motion_layout)
+        val binding = ActivityMotionLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        rating_film_rating.rating = 4.5f
-        text_film_title.text = getString(R.string.film_title)
-        text_film_description.text = getString(R.string.film_description)
+        binding.ratingFilmRating.rating = 4.5f
+        binding.textFilmTitle.text = getString(R.string.film_title)
+        binding.textFilmDescription.text = getString(R.string.film_description)
     }
 }

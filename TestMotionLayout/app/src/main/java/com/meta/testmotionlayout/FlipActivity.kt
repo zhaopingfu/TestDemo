@@ -5,17 +5,19 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.TransitionAdapter
-import kotlinx.android.synthetic.main.activity_flip.*
+import com.meta.testmotionlayout.databinding.ActivityFlipBinding
 
 class FlipActivity : AppCompatActivity() {
 
     private val TAG = "FlipActivity"
+    private lateinit var binding: ActivityFlipBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_flip)
+        binding = ActivityFlipBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        root.setTransitionListener(object : TransitionAdapter() {
+        binding.root.setTransitionListener(object : TransitionAdapter() {
             override fun onTransitionChange(
                 motionLayout: MotionLayout?,
                 startId: Int,

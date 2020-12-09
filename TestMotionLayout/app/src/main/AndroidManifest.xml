@@ -81,6 +81,9 @@
         <activity
             android:name=".FlipActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".TestMotionEditorActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
