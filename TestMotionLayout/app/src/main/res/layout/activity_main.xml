@@ -153,5 +153,12 @@
             android:layout_height="wrap_content"
             android:text="WithDrawerLayout"
             android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_jump_test_motion_editor_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test Motion Editor"
+            android:textAllCaps="false" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.core.widget.NestedScrollView>

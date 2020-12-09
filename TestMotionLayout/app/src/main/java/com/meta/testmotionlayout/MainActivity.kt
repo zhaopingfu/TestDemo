@@ -94,5 +94,9 @@ class MainActivity : AppCompatActivity() {
         binding.btnJumpWithDrawerlayoutActivity.setOnClickListener {
             startActivity(Intent(it.context, WithDrawerLayoutActivity::class.java))
         }
+
+        binding.btnJumpTestMotionEditorActivity.setOnClickListener {
+            startActivity(Intent(it.context, TestMotionEditorActivity::class.java))
+        }
     }
 }
