@@ -1,7 +1,7 @@
 package com.zhaopf.testlazyfragment.adapter
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.zhaopf.testlazyfragment.fragments.MoreFragment
 import com.zhaopf.testlazyfragment.fragments.PopularFragment
 import com.zhaopf.testlazyfragment.fragments.SmallGameFragment

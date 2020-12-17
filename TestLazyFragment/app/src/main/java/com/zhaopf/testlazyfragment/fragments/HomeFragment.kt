@@ -3,16 +3,18 @@ package com.zhaopf.testlazyfragment.fragments
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.zhaopf.testlazyfragment.R
 import com.zhaopf.testlazyfragment.adapter.HomeVpAdapter
-import kotlinx.android.synthetic.main.fragment_home_layout.*
+import com.zhaopf.testlazyfragment.databinding.FragmentHomeLayoutBinding
 
 /**
  * @author pingfu.zhao
  * @date 2020-01-14 10:46
  */
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment<FragmentHomeLayoutBinding>() {
 
     private val TAG = "HomeFragment"
 
@@ -24,13 +26,13 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         mAdapter = HomeVpAdapter(childFragmentManager)
 
-        with(app_home_bottom_vp) {
+        with(binding.appHomeBottomVp) {
             offscreenPageLimit = 5
             adapter = mAdapter
         }
-        with(tl_app_home_top_tab) {
+        with(binding.tlAppHomeTopTab) {
             setTabTextColors(Color.GREEN, Color.RED)
-            setupWithViewPager(app_home_bottom_vp)
+            setupWithViewPager(binding.appHomeBottomVp)
         }
     }
 
@@ -49,5 +51,12 @@ class HomeFragment : BaseFragment() {
 
     override fun onUiHidden() {
         Log.d(TAG, "onUiHidden: ")
+    }
+
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentHomeLayoutBinding {
+        return FragmentHomeLayoutBinding.inflate(inflater, container, false)
     }
 }

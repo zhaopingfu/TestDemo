@@ -2,9 +2,9 @@ package com.zhaopf.testlazyfragment
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.zhaopf.testlazyfragment.adapter.MainVpAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import com.zhaopf.testlazyfragment.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,18 +12,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        with(vp_app_main_top_vp) {
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        with(binding.vpAppMainTopVp) {
             offscreenPageLimit = 5
             adapter = MainVpAdapter(supportFragmentManager)
         }
-        with(tl_app_main_bottom_tab) {
+        with(binding.tlAppMainBottomTab) {
             setTabTextColors(Color.GREEN, Color.RED)
-            setupWithViewPager(vp_app_main_top_vp)
+            setupWithViewPager(binding.vpAppMainTopVp)
         }
     }
-
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)

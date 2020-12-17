@@ -2,16 +2,18 @@ package com.zhaopf.testlazyfragment.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.zhaopf.testlazyfragment.R
 import com.zhaopf.testlazyfragment.adapter.PopularVpAdapter
-import kotlinx.android.synthetic.main.fragment_popular_layout.*
+import com.zhaopf.testlazyfragment.databinding.FragmentPopularLayoutBinding
 
 /**
  * @author pingfu.zhao
  * @date 2020-01-14 10:46
  */
-class PopularFragment : BaseFragment() {
+class PopularFragment : BaseFragment<FragmentPopularLayoutBinding>() {
 
     private val TAG = "PopularFragment"
 
@@ -23,7 +25,7 @@ class PopularFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mAdapter = PopularVpAdapter(childFragmentManager)
-        with(vp_vertical) {
+        with(binding.vpVertical) {
             offscreenPageLimit = 6
             adapter = mAdapter
         }
@@ -44,5 +46,12 @@ class PopularFragment : BaseFragment() {
 
     override fun onUiHidden() {
         Log.d(TAG, "onUiHidden: ")
+    }
+
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentPopularLayoutBinding {
+        return FragmentPopularLayoutBinding.inflate(inflater, container, false)
     }
 }

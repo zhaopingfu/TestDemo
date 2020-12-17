@@ -1,23 +1,26 @@
 package com.zhaopf.testlazyfragment.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.viewbinding.ViewBinding;
 
 /**
  * @author pingfu.zhao
  * @date 2020-01-14 10:39
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
 
     protected View mRootView;
     private boolean isViewInitiated;
     private boolean isVisibleToUser;
     private boolean isDataInitiated;
+    protected T binding;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -33,10 +36,13 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    protected abstract T getViewBinding(LayoutInflater inflater, ViewGroup container);
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView = inflater.inflate(getLayoutResId(), container, false);
+        binding = getViewBinding(getLayoutInflater(), container);
+        mRootView = binding.getRoot();
         return mRootView;
     }
 

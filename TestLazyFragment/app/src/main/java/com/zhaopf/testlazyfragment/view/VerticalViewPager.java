@@ -1,5 +1,6 @@
 package com.zhaopf.testlazyfragment.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -12,18 +13,6 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
-import android.support.v4.os.ParcelableCompat;
-import android.support.v4.os.ParcelableCompatCreatorCallbacks;
-import android.support.v4.view.AccessibilityDelegateCompat;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.VelocityTrackerCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewConfigurationCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
-import android.support.v4.view.accessibility.AccessibilityRecordCompat;
-import android.support.v4.widget.EdgeEffectCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.FocusFinder;
@@ -39,6 +28,19 @@ import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
+
+import androidx.core.os.ParcelableCompat;
+import androidx.core.os.ParcelableCompatCreatorCallbacks;
+import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.VelocityTrackerCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewConfigurationCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityRecordCompat;
+import androidx.core.widget.EdgeEffectCompat;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -82,21 +84,14 @@ public class VerticalViewPager extends ViewGroup {
         float offset;
     }
 
-    private static final Comparator<ItemInfo> COMPARATOR = new Comparator<ItemInfo>() {
-        @Override
-        public int compare(ItemInfo lhs, ItemInfo rhs) {
-            return lhs.position - rhs.position;
-        }
+    private static final Comparator<ItemInfo> COMPARATOR = (lhs, rhs) -> lhs.position - rhs.position;
+
+    private static final Interpolator sInterpolator = t -> {
+        t -= 1.0f;
+        return t * t * t * t * t + 1.0f;
     };
 
-    private static final Interpolator sInterpolator = new Interpolator() {
-        public float getInterpolation(float t) {
-            t -= 1.0f;
-            return t * t * t * t * t + 1.0f;
-        }
-    };
-
-    private final ArrayList<ItemInfo> mItems = new ArrayList<ItemInfo>();
+    private final ArrayList<ItemInfo> mItems = new ArrayList<>();
     private final ItemInfo mTempItem = new ItemInfo();
 
     private final Rect mTempRect = new Rect();
@@ -480,7 +475,7 @@ public class VerticalViewPager extends ViewGroup {
 
     /**
      * Set a onLogoClickListener that will be invoked whenever the page changes or is incrementally
-     * scrolled. See {@link android.support.v4.view.ViewPager.OnPageChangeListener}.
+     * scrolled. See {@link androidx.viewpager.widget.ViewPager.OnPageChangeListener}.
      *
      * @param listener Listener to set
      */
@@ -489,7 +484,7 @@ public class VerticalViewPager extends ViewGroup {
     }
 
     /**
-     * Set a {@link android.support.v4.view.ViewPager.PageTransformer} that will be called for each attached page whenever
+     * Set a {@link androidx.viewpager.widget.ViewPager.PageTransformer} that will be called for each attached page whenever
      * the scroll position is changed. This allows the application to apply custom property
      * transformations to each page, overriding the default sliding look and feel.
      * <p/>
@@ -501,43 +496,38 @@ public class VerticalViewPager extends ViewGroup {
      * @param transformer         PageTransformer that will modify each page's animation properties
      */
     public void setPageTransformer(boolean reverseDrawingOrder, ViewPager.PageTransformer transformer) {
-        if (Build.VERSION.SDK_INT >= 11) {
-            final boolean hasTransformer = transformer != null;
-            final boolean needsPopulate = hasTransformer != (mPageTransformer != null);
-            mPageTransformer = transformer;
-            setChildrenDrawingOrderEnabledCompat(hasTransformer);
-            if (hasTransformer) {
-                mDrawingOrder = reverseDrawingOrder ? DRAW_ORDER_REVERSE : DRAW_ORDER_FORWARD;
-            } else {
-                mDrawingOrder = DRAW_ORDER_DEFAULT;
-            }
-            if (needsPopulate) populate();
+        final boolean hasTransformer = transformer != null;
+        final boolean needsPopulate = hasTransformer != (mPageTransformer != null);
+        mPageTransformer = transformer;
+        setChildrenDrawingOrderEnabledCompat(hasTransformer);
+        if (hasTransformer) {
+            mDrawingOrder = reverseDrawingOrder ? DRAW_ORDER_REVERSE : DRAW_ORDER_FORWARD;
+        } else {
+            mDrawingOrder = DRAW_ORDER_DEFAULT;
         }
+        if (needsPopulate) populate();
     }
 
     void setChildrenDrawingOrderEnabledCompat(boolean enable) {
-        if (Build.VERSION.SDK_INT >= 7) {
-            if (mSetChildrenDrawingOrderEnabled == null) {
-                try {
-                    mSetChildrenDrawingOrderEnabled = ViewGroup.class.getDeclaredMethod(
-                            "setChildrenDrawingOrderEnabled", new Class[]{Boolean.TYPE});
-                } catch (NoSuchMethodException e) {
-                    Log.e(TAG, "Can't find setChildrenDrawingOrderEnabled", e);
-                }
-            }
+        if (mSetChildrenDrawingOrderEnabled == null) {
             try {
-                mSetChildrenDrawingOrderEnabled.invoke(this, enable);
-            } catch (Exception e) {
-                Log.e(TAG, "Error changing children drawing order", e);
+                mSetChildrenDrawingOrderEnabled = ViewGroup.class.getDeclaredMethod(
+                        "setChildrenDrawingOrderEnabled", new Class[]{Boolean.TYPE});
+            } catch (NoSuchMethodException e) {
+                Log.e(TAG, "Can't find setChildrenDrawingOrderEnabled", e);
             }
+        }
+        try {
+            mSetChildrenDrawingOrderEnabled.invoke(this, enable);
+        } catch (Exception e) {
+            Log.e(TAG, "Error changing children drawing order", e);
         }
     }
 
     @Override
     protected int getChildDrawingOrder(int childCount, int i) {
         final int index = mDrawingOrder == DRAW_ORDER_REVERSE ? childCount - 1 - i : i;
-        final int result = ((LayoutParams) mDrawingOrderedChildren.get(index).getLayoutParams()).childIndex;
-        return result;
+        return ((LayoutParams) mDrawingOrderedChildren.get(index).getLayoutParams()).childIndex;
     }
 
     /**
@@ -1671,12 +1661,13 @@ public class VerticalViewPager extends ViewGroup {
         return (y < mGutterSize && dy > 0) || (y > getHeight() - mGutterSize && dy < 0);
     }
 
+    @SuppressLint("WrongConstant")
     private void enableLayers(boolean enable) {
         final int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
-            final int layerType = enable ?
-                    ViewCompat.LAYER_TYPE_HARDWARE : ViewCompat.LAYER_TYPE_NONE;
-            ViewCompat.setLayerType(getChildAt(i), layerType, null);
+            ViewCompat.setLayerType(getChildAt(i),
+                    enable ? ViewCompat.LAYER_TYPE_HARDWARE : ViewCompat.LAYER_TYPE_NONE,
+                    null);
         }
     }
 

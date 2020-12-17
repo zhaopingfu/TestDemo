@@ -1,20 +1,21 @@
 package com.zhaopf.testlazyfragment;
 
 import android.app.Activity;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.OnLifecycleEvent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.zhaopf.testlazyfragment.util.DeviceUtil;
@@ -91,9 +92,6 @@ public class FullScreenObserver implements LifecycleObserver {
      * 4.4 - 5.0版本
      */
     private void setStatusBarUpperApi19() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            return;
-        }
         Window window = mAppCompatActivity.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         mAppCompatActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
