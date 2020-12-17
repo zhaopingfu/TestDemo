@@ -3,10 +3,7 @@ package com.zhaopf.testlazyfragment.fragments
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import com.zhaopf.testlazyfragment.R
 import com.zhaopf.testlazyfragment.adapter.HomeVpAdapter
 import com.zhaopf.testlazyfragment.databinding.FragmentHomeLayoutBinding
 
@@ -19,8 +16,6 @@ class HomeFragment : BaseFragment<FragmentHomeLayoutBinding>() {
     private val TAG = "HomeFragment"
 
     private var mAdapter: HomeVpAdapter? = null
-
-    override fun getLayoutResId(): Int = R.layout.fragment_home_layout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,12 +46,5 @@ class HomeFragment : BaseFragment<FragmentHomeLayoutBinding>() {
 
     override fun onUiHidden() {
         Log.d(TAG, "onUiHidden: ")
-    }
-
-    override fun getViewBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentHomeLayoutBinding {
-        return FragmentHomeLayoutBinding.inflate(inflater, container, false)
     }
 }

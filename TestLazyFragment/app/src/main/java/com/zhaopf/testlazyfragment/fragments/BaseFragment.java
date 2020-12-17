@@ -10,6 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewbinding.ViewBinding;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
 /**
  * @author pingfu.zhao
  * @date 2020-01-14 10:39
@@ -36,12 +41,18 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
         }
     }
 
-    protected abstract T getViewBinding(LayoutInflater inflater, ViewGroup container);
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = getViewBinding(getLayoutInflater(), container);
+        // 利用反射，调用指定ViewBinding中的inflate方法填充视图
+        Type superclass = getClass().getGenericSuperclass();
+        Class<?> aClass = (Class<?>) ((ParameterizedType) superclass).getActualTypeArguments()[0];
+        try {
+            Method method = aClass.getDeclaredMethod("inflate", LayoutInflater.class, ViewGroup.class, boolean.class);
+            binding = (T) method.invoke(null, inflater, container, false);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
         mRootView = binding.getRoot();
         return mRootView;
     }
@@ -89,11 +100,6 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
     }
 
     /**
-     * 获取布局id
-     */
-    protected abstract int getLayoutResId();
-
-    /**
      * 只会调用一次
      */
     protected abstract void fetchData();
@@ -125,7 +131,7 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
 
     protected boolean isParentFragVisible() {
         Fragment tFrag = getParentFragment();
-        BaseFragment parentFrag = tFrag instanceof BaseFragment ? (BaseFragment) tFrag : null;
+        BaseFragment<?> parentFrag = tFrag instanceof BaseFragment ? (BaseFragment<?>) tFrag : null;
         return parentFrag == null || parentFrag.isUiVisible();
     }
 }
