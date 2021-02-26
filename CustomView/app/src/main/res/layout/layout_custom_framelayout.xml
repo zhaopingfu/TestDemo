@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhaopingfu.customview.TestFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="#FF0000"
+        android:gravity="center" />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="#8800FF00"
+        android:gravity="start|top" />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="#860000FF"
+        android:gravity="bottom|end" />
+</com.zhaopingfu.customview.TestFrameLayout>
