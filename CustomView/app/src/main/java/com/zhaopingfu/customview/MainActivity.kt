@@ -15,5 +15,11 @@ class MainActivity : AppCompatActivity() {
         binding.btnCustomFrameLayout.setOnClickListener {
             setContentView(R.layout.layout_custom_framelayout)
         }
+        binding.btnCustomLinearLayout.setOnClickListener {
+            setContentView(R.layout.layout_custom_linearlayout)
+        }
+        binding.btnCustomLinearLayoutHorizontal.setOnClickListener {
+            setContentView(R.layout.layout_custom_linearlayout_horizontal)
+        }
     }
 }

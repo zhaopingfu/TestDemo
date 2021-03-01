@@ -19,6 +19,22 @@
             android:text="custom FrameLayout"
             android:textAllCaps="false"
             tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/btn_custom_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="custom LinearLayout vertical"
+            android:textAllCaps="false"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/btn_custom_linearLayout_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="custom LinearLayout horizontal"
+            android:textAllCaps="false"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
 </ScrollView>

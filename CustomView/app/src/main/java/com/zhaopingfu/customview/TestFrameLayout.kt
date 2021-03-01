@@ -28,6 +28,7 @@ class TestFrameLayout @JvmOverloads constructor(
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
         // FrameLayout 本身不是 MatchParent 或者 具体值
+        // 也就是说 FrameLayout本身是 wrap Content
         val measureMatchParentChildren =
             MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.EXACTLY
                     || MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY
@@ -205,9 +206,9 @@ class FrameLayoutParams : ViewGroup.MarginLayoutParams {
     }
 
     constructor(c: Context, attrs: AttributeSet?) : super(c, attrs) {
-        val a = c.obtainStyledAttributes(attrs, R.styleable.TestFrameLayout)
+        val a = c.obtainStyledAttributes(attrs, R.styleable.TestFrameLayout_Layout)
         gravity = a.getInt(
-            R.styleable.TestFrameLayout_android_gravity,
+            R.styleable.TestFrameLayout_Layout_android_layout_gravity,
             UNSPECIFIED_GRAVITY
         )
         a.recycle()

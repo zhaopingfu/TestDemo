@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="TestFrameLayout">
-        <attr name="android:gravity" format="integer" />
+    <declare-styleable name="TestFrameLayout_Layout">
+        <attr name="android:layout_gravity" />
+    </declare-styleable>
+
+    <declare-styleable name="TestLinearLayout">
+        <attr name="android:orientation" />
+        <attr name="android:gravity" />
+    </declare-styleable>
+
+    <declare-styleable name="TestLinearLayout_Layout">
+        <attr name="android:layout_gravity" />
+        <attr name="weight" format="float" />
     </declare-styleable>
 </resources>
