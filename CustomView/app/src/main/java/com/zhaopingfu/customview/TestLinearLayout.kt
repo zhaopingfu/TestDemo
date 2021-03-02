@@ -34,6 +34,8 @@ class TestLinearLayout @JvmOverloads constructor(
                 a.getInt(R.styleable.TestLinearLayout_android_gravity, Gravity.START or Gravity.TOP)
             a.recycle()
         }
+
+        setWillNotDraw(true)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

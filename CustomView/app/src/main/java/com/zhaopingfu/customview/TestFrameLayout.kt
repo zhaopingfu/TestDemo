@@ -24,6 +24,10 @@ class TestFrameLayout @JvmOverloads constructor(
 
     private val matchParentChildren by lazy { ArrayList<View>(1) }
 
+    init {
+        setWillNotDraw(true)
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
