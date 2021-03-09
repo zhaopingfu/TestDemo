@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import java.io.Serializable
 
 /**
  *
@@ -24,7 +25,7 @@ class BaseAdapter<T : BaseBean> : RecyclerView.Adapter<MViewHolder>() {
 
     override fun onBindViewHolder(holder: MViewHolder, position: Int) {
         val bean = dataList[position]
-        holderMap[bean.getViewType()]?.convert(position, bean)
+        holderMap[bean.getViewType()]?.convert(holder, position, bean)
     }
 
     override fun getItemCount(): Int = dataList.size
@@ -43,3 +44,13 @@ class BaseAdapter<T : BaseBean> : RecyclerView.Adapter<MViewHolder>() {
 }
 
 class MViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+abstract class BaseTemplate<out T : BaseBean> {
+    abstract fun convert(holder: MViewHolder, position: Int, bean: @UnsafeVariance T)
+
+    abstract fun getItemViewId(): Int
+}
+
+abstract class BaseBean : Serializable {
+    abstract fun getViewType(): Int
+}
