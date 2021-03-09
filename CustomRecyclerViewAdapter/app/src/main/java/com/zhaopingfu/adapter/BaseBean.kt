@@ -1,7 +1,5 @@
 package com.zhaopingfu.adapter
 
-import java.io.Serializable
-
 /**
  *
  * @author zhaopingfu

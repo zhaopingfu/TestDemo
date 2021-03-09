@@ -1,22 +1,39 @@
 package com.zhaopingfu.adapter
 
+import android.graphics.Color
+import android.view.ViewGroup
+import com.zhaopingfu.adapter.databinding.LayoutATemplateBinding
+import com.zhaopingfu.adapter.databinding.LayoutBTemplateBinding
+
 /**
  *
  * @author zhaopingfu
  * @date 2021-03-08 15:52
  */
-class ATemplate : BaseTemplate<ABean>() {
-
-    override fun convert(holder: MViewHolder, position: Int, bean: ABean) {
+class ATemplate : BaseTemplate<ABean, LayoutATemplateBinding>() {
+    override fun bindData(
+        holder: BindingViewHolder<LayoutATemplateBinding>,
+        bean: ABean,
+        position: Int
+    ) {
+        holder.binding.root.setBackgroundColor(Color.GRAY)
     }
 
-    override fun getItemViewId(): Int = R.layout.layout_a_template
+    override fun getViewBinding(parent: ViewGroup): LayoutATemplateBinding {
+        return newBinding(parent)
+    }
 }
 
-class BTemplate : BaseTemplate<BBean>() {
-
-    override fun convert(holder: MViewHolder, position: Int, bean: BBean) {
+class BTemplate : BaseTemplate<BBean, LayoutBTemplateBinding>() {
+    override fun bindData(
+        holder: BindingViewHolder<LayoutBTemplateBinding>,
+        bean: BBean,
+        position: Int
+    ) {
+        holder.binding.root.setBackgroundColor(Color.DKGRAY)
     }
 
-    override fun getItemViewId(): Int = R.layout.layout_b_template
+    override fun getViewBinding(parent: ViewGroup): LayoutBTemplateBinding {
+        return newBinding(parent)
+    }
 }

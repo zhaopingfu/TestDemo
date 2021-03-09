@@ -4,11 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
 class MainActivity : AppCompatActivity() {
 
     private val listAdapter by lazy {
-        BaseAdapter<BaseBean>().apply {
+        BaseAdapter<BaseBean, ViewBinding>().apply {
             addHolder(ABean().getViewType(), ATemplate())
             addHolder(BBean().getViewType(), BTemplate())
         }
