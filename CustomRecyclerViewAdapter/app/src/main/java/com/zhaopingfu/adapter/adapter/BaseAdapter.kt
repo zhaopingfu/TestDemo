@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import java.io.Serializable
+import java.lang.reflect.ParameterizedType
 
 /**
  *
@@ -23,7 +24,16 @@ class BaseAdapter<T : BaseBean, VB : ViewBinding> :
     ): BindingViewHolder<VB> {
         val data = dataList[viewType]
         val template = holderMap[data.getViewType()]
-        return BindingViewHolder(template?.getViewBinding(parent)!!)
+
+        val method = template?.bindingClass?.getMethod(
+            "inflate",
+            LayoutInflater::class.java,
+            ViewGroup::class.java,
+            Boolean::class.java
+        )
+        val binding =
+            method?.invoke(null, LayoutInflater.from(parent.context), parent, false) as ViewBinding
+        return BindingViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: BindingViewHolder<VB>, position: Int) {
@@ -47,13 +57,22 @@ class BaseAdapter<T : BaseBean, VB : ViewBinding> :
 }
 
 abstract class BaseTemplate<out T : BaseBean, out VB : ViewBinding> {
+
+    lateinit var bindingClass: Class<*>
+
+    init {
+        val superClass = javaClass.genericSuperclass
+        if (superClass is ParameterizedType) {
+            val typeArray = superClass.actualTypeArguments
+            bindingClass = typeArray[1] as Class<*>
+        }
+    }
+
     abstract fun bindData(
         holder: BindingViewHolder<VB>,
         bean: @UnsafeVariance T,
         position: Int
     )
-
-    abstract fun getViewBinding(parent: ViewGroup): VB
 }
 
 abstract class BaseBean : Serializable {
@@ -65,24 +84,3 @@ abstract class BaseBean : Serializable {
  */
 class BindingViewHolder<in VB : ViewBinding>(val binding: @UnsafeVariance VB) :
     RecyclerView.ViewHolder(binding.root)
-
-inline fun <reified T : ViewBinding> newBindingViewHolder(parent: ViewGroup): BindingViewHolder<T> {
-    val method = T::class.java.getMethod(
-        "inflate",
-        LayoutInflater::class.java,
-        ViewGroup::class.java,
-        Boolean::class.java
-    )
-    val binding = method.invoke(null, LayoutInflater.from(parent.context), parent, false) as T
-    return BindingViewHolder(binding)
-}
-
-inline fun <reified T : ViewBinding> newBinding(parent: ViewGroup): T {
-    val method = T::class.java.getMethod(
-        "inflate",
-        LayoutInflater::class.java,
-        ViewGroup::class.java,
-        Boolean::class.java
-    )
-    return method.invoke(null, LayoutInflater.from(parent.context), parent, false) as T
-}

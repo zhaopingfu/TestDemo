@@ -1,7 +1,6 @@
 package com.zhaopingfu.adapter
 
 import android.graphics.Color
-import android.view.ViewGroup
 import com.zhaopingfu.adapter.databinding.LayoutATemplateBinding
 import com.zhaopingfu.adapter.databinding.LayoutBTemplateBinding
 
@@ -18,10 +17,6 @@ class ATemplate : BaseTemplate<ABean, LayoutATemplateBinding>() {
     ) {
         holder.binding.root.setBackgroundColor(Color.GRAY)
     }
-
-    override fun getViewBinding(parent: ViewGroup): LayoutATemplateBinding {
-        return newBinding(parent)
-    }
 }
 
 class BTemplate : BaseTemplate<BBean, LayoutBTemplateBinding>() {
@@ -31,9 +26,5 @@ class BTemplate : BaseTemplate<BBean, LayoutBTemplateBinding>() {
         position: Int
     ) {
         holder.binding.root.setBackgroundColor(Color.DKGRAY)
-    }
-
-    override fun getViewBinding(parent: ViewGroup): LayoutBTemplateBinding {
-        return newBinding(parent)
     }
 }
