@@ -1,8 +1,10 @@
 package com.meta.kotlinstudy
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
+import android.util.Log
+import androidx.lifecycle.*
+import com.meta.kotlinstudy.coroutine_retrofit.BannerItemBean
+import com.meta.kotlinstudy.coroutine_retrofit.RetrofitClient
+import kotlinx.coroutines.launch
 
 /**
  * @author zhaopingfu
@@ -10,8 +12,16 @@ import androidx.lifecycle.ViewModelStoreOwner
  */
 class MainViewModel(private val str: String) : ViewModel() {
 
-    init {
-        println("str: $str")
+    private val TAG = "MainViewModel"
+
+    val bannerList: MutableLiveData<List<BannerItemBean>> by lazy { MutableLiveData() }
+
+    fun getBannerList() {
+        viewModelScope.launch {
+            val listRepos = RetrofitClient.articleService.listRepos()
+            Log.d(TAG, "getBannerList: $listRepos")
+            bannerList.value = listRepos.data
+        }
     }
 }
 

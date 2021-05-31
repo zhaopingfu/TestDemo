@@ -16,6 +16,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/tv_test_coroutine_retrofit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test coroutine retrofit"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_test"
+        tools:ignore="HardcodedText" />
+
     <ImageView
         android:id="@+id/iv_test"
         android:layout_width="wrap_content"
@@ -25,5 +36,5 @@
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_test" />
+        app:layout_constraintTop_toBottomOf="@id/tv_test_coroutine_retrofit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

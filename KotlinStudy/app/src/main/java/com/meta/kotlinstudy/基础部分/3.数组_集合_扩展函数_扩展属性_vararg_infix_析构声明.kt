@@ -57,8 +57,8 @@ fun testList() {
     list4.any { it > 5 }
     // 所有满足的
     list4.all { it > 5 }
-    list4.min()
-    list4.max()
+    list4.minOrNull()
+    list4.maxOrNull()
     list4.sum()
 }
 

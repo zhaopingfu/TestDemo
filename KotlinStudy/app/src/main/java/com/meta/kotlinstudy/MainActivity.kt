@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenResumed
 import coil.load
+import com.meta.kotlinstudy.coroutine_retrofit.WanAndroidService
 import com.meta.kotlinstudy.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.produce
 import kotlinx.coroutines.flow.*
+import retrofit2.Retrofit
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val mFactory by lazy { MainViewModelFactory("11111111") }
+    private val mainViewModel by lazy { mFactory.create(MainViewModel::class.java) }
 
     private val scope = MainScope()
 
@@ -104,6 +108,15 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "onCreate: channel produce value: $i")
                 }
             }
+        }
+
+        mainViewModel.bannerList.observe(this, { list ->
+            list.forEach { item ->
+                Log.d(TAG, "onCreate: ${item.title}")
+            }
+        })
+        binding.tvTestCoroutineRetrofit.setOnClickListener {
+            mainViewModel.getBannerList()
         }
     }
 
