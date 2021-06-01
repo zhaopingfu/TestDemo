@@ -3,7 +3,9 @@ package com.meta.kotlinstudy
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.liveData
 import androidx.lifecycle.whenResumed
 import coil.load
 import com.meta.kotlinstudy.coroutine_retrofit.WanAndroidService
@@ -153,4 +155,51 @@ class MainActivity : AppCompatActivity() {
         MainViewModelProvider(this, MainViewModelFactory("3333333"))
             .get("33333", MainViewModel::class.java)
     }
+}
+
+
+fun fooList(): List<Int> = listOf(1, 2, 3)
+
+fun foo(): Sequence<Int> = sequence {
+    for (i in 1..3) {
+        Thread.sleep(100L)
+        yield(i)
+    }
+}
+
+suspend fun fooList2(): List<Int> {
+    delay(1000L)
+    return listOf(1, 2, 3)
+}
+
+fun fooFlow(): Flow<Int> = flow {
+    for (i in 1..3) {
+        delay(100L)
+        emit(i)
+    }
+}.flowOn(Dispatchers.IO)
+
+fun mainFooFlow() = runBlocking {
+    launch {
+        for (i in 1..3) {
+            println("I'm not blocked $i")
+            delay(100L)
+        }
+    }
+
+    fooFlow().collect { value -> println(value) }
+
+    fooFlow()
+        .onStart {
+        }
+        .catch {
+        }
+        .onCompletion {
+        }
+        .asLiveData()
+        // .collectLatest {}
+}
+
+val a = liveData<Int> {
+    emit(1)
 }
