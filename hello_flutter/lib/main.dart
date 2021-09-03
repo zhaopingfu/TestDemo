@@ -13,6 +13,7 @@ import 'package:hello_flutter/sample/custom_paint_sample.dart';
 import 'package:hello_flutter/sample/gradient_circular_progress_sample.dart';
 import 'package:hello_flutter/sample/text_field_sample.dart';
 import 'package:hello_flutter/sample/turn_box_sample.dart';
+import 'package:hello_flutter/sample/wave_loading_widget.dart';
 import 'package:hello_flutter/turn_box.dart';
 import 'package:hello_flutter/text_field.dart';
 
@@ -200,6 +201,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 }));
               },
             ),
+            ElevatedButton(
+              child: const Text('gradient circular progress sample'),
+              onPressed: () {
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const GradientCircularProgressSampleRoute();
+                }));
+              },
+            ),
+            _waveWidgets(),
           ],
         ),
       ),
@@ -208,6 +218,37 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
+    );
+  }
+
+  Widget _waveWidgets() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: const <Widget>[
+        SizedBox(
+          width: 300,
+          height: 300,
+          child: WaveLoadingWidget(
+            text: '锲',
+            fontSize: 215,
+            backgroundColor: Colors.lightBlue,
+            foregroundColor: Colors.white,
+            waveColor: Colors.lightBlue,
+          ),
+        ),
+        SizedBox(
+          width: 250,
+          height: 250,
+          child: WaveLoadingWidget(
+            text: '而',
+            fontSize: 175,
+            backgroundColor: Colors.indigoAccent,
+            foregroundColor: Colors.white,
+            waveColor: Colors.indigoAccent,
+          ),
+        ),
+      ],
     );
   }
 }
