@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StudyScaleRoute extends StatefulWidget {
+  const StudyScaleRoute({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _StudyScaleRouteState();
 }
@@ -13,7 +15,7 @@ class _StudyScaleRouteState extends State<StudyScaleRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: Center(

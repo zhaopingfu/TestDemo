@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TurnBoxDemoRoute extends StatefulWidget {
+  const TurnBoxDemoRoute({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _TurnBoxDemoRouteState();
 }
@@ -18,19 +20,19 @@ class _TurnBoxDemoRouteState extends State<TurnBoxDemoRoute> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TurnBoxDemo(turns: _turns, duration: 500, child: Icon(Icons.ac_unit, size: 50.0)),
-                TurnBoxDemo(turns: _turns, duration: 500, child: Icon(Icons.ac_unit, size: 150.0)),
-                RaisedButton(
-                  child: Text('顺时针旋转1/5圈'),
+              children: <Widget>[
+                TurnBoxDemo(turns: _turns, duration: 500, child: const Icon(Icons.ac_unit, size: 50.0)),
+                TurnBoxDemo(turns: _turns, duration: 500, child: const Icon(Icons.ac_unit, size: 150.0)),
+                ElevatedButton(
+                  child: const Text('顺时针旋转1/5圈'),
                   onPressed: () {
                     setState(() {
                       _turns += .2;
                     });
                   },
                 ),
-                RaisedButton(
-                  child: Text('逆时针旋转1/5圈'),
+                ElevatedButton(
+                  child: const Text('逆时针旋转1/5圈'),
                   onPressed: () {
                     setState(() {
                       _turns -= .2;
@@ -48,10 +50,10 @@ class _TurnBoxDemoRouteState extends State<TurnBoxDemoRoute> {
 
 class TurnBoxDemo extends StatefulWidget {
   const TurnBoxDemo({
-    Key key,
-    this.turns,
-    this.duration,
-    this.child,
+    Key? key,
+    required this.turns,
+    this.duration = 200,
+    required this.child,
   }) : super(key: key);
 
   final double turns;
@@ -63,7 +65,7 @@ class TurnBoxDemo extends StatefulWidget {
 }
 
 class _TurnBoxDemoState extends State<TurnBoxDemo> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   @override
   void initState() {
@@ -85,14 +87,14 @@ class _TurnBoxDemoState extends State<TurnBoxDemo> with SingleTickerProviderStat
     }
     _animationController.animateTo(
       widget.turns,
-      duration: Duration(milliseconds: widget.duration ?? 200),
+      duration: Duration(milliseconds: widget.duration),
       curve: Curves.easeOut,
     );
   }
 
   @override
   void dispose() {
-    _animationController?.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 

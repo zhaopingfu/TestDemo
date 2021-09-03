@@ -3,26 +3,28 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class StudyGestureRecognizer extends StatefulWidget {
+  const StudyGestureRecognizer({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _StudyGestureRecognizerState();
 }
 
 class _StudyGestureRecognizerState extends State<StudyGestureRecognizer> {
   bool _toggle = false;
-  TapGestureRecognizer _tapGestureRecognizer = TapGestureRecognizer();
+  final TapGestureRecognizer _tapGestureRecognizer = TapGestureRecognizer();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: SafeArea(
           child: Center(
             child: Text.rich(
               TextSpan(
-                children: [
-                  TextSpan(text: '你好世界'),
+                children: <InlineSpan>[
+                  const TextSpan(text: '你好世界'),
                   TextSpan(
                     text: '点我变色',
                     style: TextStyle(
@@ -36,7 +38,7 @@ class _StudyGestureRecognizerState extends State<StudyGestureRecognizer> {
                         });
                       },
                   ),
-                  TextSpan(text: '你好世界'),
+                  const TextSpan(text: '你好世界'),
                 ],
               ),
             ),
@@ -48,7 +50,7 @@ class _StudyGestureRecognizerState extends State<StudyGestureRecognizer> {
 
   @override
   void dispose() {
-    _tapGestureRecognizer?.dispose();
+    _tapGestureRecognizer.dispose();
     super.dispose();
   }
 }

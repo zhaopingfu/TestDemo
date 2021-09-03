@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class TurnBox extends StatefulWidget {
   const TurnBox({
-    Key key,
+    Key? key,
     this.turns = .0, // 旋转的“圈”数,一圈为360度，如0.25圈即90度
     this.speed = 200, // 过渡动画执行的总时长
-    this.child,
+    required this.child,
   }) : super(key: key);
 
   final double turns;
@@ -18,12 +18,12 @@ class TurnBox extends StatefulWidget {
 }
 
 class _TurnBoxState extends State<TurnBox> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
-    _animationController = new AnimationController(vsync: this, lowerBound: -double.infinity, upperBound: double.infinity);
+    _animationController = AnimationController(vsync: this, lowerBound: -double.infinity, upperBound: double.infinity);
     _animationController.value = widget.turns;
   }
 
@@ -43,19 +43,21 @@ class _TurnBoxState extends State<TurnBox> with SingleTickerProviderStateMixin {
     }
     _animationController.animateTo(
       widget.turns,
-      duration: Duration(milliseconds: widget.speed ?? 200),
+      duration: Duration(milliseconds: widget.speed),
       curve: Curves.easeOut,
     );
   }
 
   @override
   void dispose() {
-    _animationController?.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 }
 
 class TurnBoxRoute extends StatefulWidget {
+  const TurnBoxRoute({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _TurnBoxRouteState();
 }
@@ -69,19 +71,19 @@ class _TurnBoxRouteState extends State<TurnBoxRoute> {
       body: Center(
         child: SafeArea(
           child: Column(
-            children: [
-              TurnBox(turns: _turns, speed: 500, child: Icon(Icons.ac_unit, size: 50.0)),
-              TurnBox(turns: _turns, speed: 1000, child: Icon(Icons.ac_unit, size: 150.0)),
-              RaisedButton(
-                child: Text('顺时针旋转1/5圈'),
+            children: <Widget>[
+              TurnBox(turns: _turns, speed: 500, child: const Icon(Icons.ac_unit, size: 50.0)),
+              TurnBox(turns: _turns, speed: 1000, child: const Icon(Icons.ac_unit, size: 150.0)),
+              ElevatedButton(
+                child: const Text('顺时针旋转1/5圈'),
                 onPressed: () {
                   setState(() {
                     _turns += .2;
                   });
                 },
               ),
-              RaisedButton(
-                child: Text('逆时针旋转1/5圈'),
+              ElevatedButton(
+                child: const Text('逆时针旋转1/5圈'),
                 onPressed: () {
                   setState(() {
                     _turns -= .2;

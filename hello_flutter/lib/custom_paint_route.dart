@@ -4,13 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomPaintRoute extends StatelessWidget {
+  const CustomPaintRoute({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: CustomPaint(
-            size: Size(300, 300),
+            size: const Size(300, 300),
             painter: MyPainter(),
           ),
         ),
@@ -22,14 +24,14 @@ class CustomPaintRoute extends StatelessWidget {
 class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    double eWidth = size.width / 15.0;
-    double eHeight = size.height / 15.0;
+    final double eWidth = size.width / 15.0;
+    final double eHeight = size.height / 15.0;
 
     // 棋盘背景
-    var paint = Paint()
+    final Paint paint = Paint()
       ..isAntiAlias = true
       ..style = PaintingStyle.fill
-      ..color = Color(0x77cdb175);
+      ..color = const Color(0x77cdb175);
     canvas.drawRect(Offset.zero & size, paint);
 
     // 画棋盘网格
@@ -39,12 +41,12 @@ class MyPainter extends CustomPainter {
       ..strokeWidth = 1.0;
 
     for (int i = 0; i <= 15; ++i) {
-      double dy = eHeight * i;
+      final double dy = eHeight * i;
       canvas.drawLine(Offset(0, dy), Offset(size.width, dy), paint);
     }
 
     for (int i = 0; i <= 15; ++i) {
-      double dx = eWidth * i;
+      final double dx = eWidth * i;
       canvas.drawLine(Offset(dx, 0), Offset(dx, size.height), paint);
     }
 
@@ -52,11 +54,13 @@ class MyPainter extends CustomPainter {
     paint
       ..style = PaintingStyle.fill
       ..color = Colors.black;
-    canvas.drawCircle(Offset(size.width / 2 - eWidth / 2, size.height / 2 - eHeight / 2), min(eWidth / 2, eHeight / 2) - 2, paint);
+    canvas.drawCircle(
+        Offset(size.width / 2 - eWidth / 2, size.height / 2 - eHeight / 2), min(eWidth / 2, eHeight / 2) - 2, paint);
 
     // 画一个白子
-    paint..color = Colors.white;
-    canvas.drawCircle(Offset(size.width / 2 + eWidth / 2, size.height / 2 - eHeight / 2), min(eWidth / 2, eHeight / 2) - 2, paint);
+    paint.color = Colors.white;
+    canvas.drawCircle(
+        Offset(size.width / 2 + eWidth / 2, size.height / 2 - eHeight / 2), min(eWidth / 2, eHeight / 2) - 2, paint);
   }
 
   // 可以把棋盘，棋子分成两个控件，棋盘不需要重绘，提高性能

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StudyGestureDetectorRoute extends StatefulWidget {
+  const StudyGestureDetectorRoute({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _StudyGestureDetectorRouteState();
 }
@@ -13,14 +15,14 @@ class _StudyGestureDetectorRouteState extends State<StudyGestureDetectorRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+              children: <Widget>[
                 Center(
                   child: GestureDetector(
                     child: Container(
@@ -30,7 +32,7 @@ class _StudyGestureDetectorRouteState extends State<StudyGestureDetectorRoute> {
                       alignment: Alignment.center,
                       child: Text(
                         _operation,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                     onTap: () => _updateText('Tap'),

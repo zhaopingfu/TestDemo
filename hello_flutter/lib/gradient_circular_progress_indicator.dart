@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:hello_flutter/turn_box.dart';
 
 class GradientCircularProgressIndicator extends StatelessWidget {
-  GradientCircularProgressIndicator({
+  const GradientCircularProgressIndicator({
+    Key? key,
     this.strokeWidth = 2.0,
-    @required this.radius,
-    @required this.colors,
-    this.stops,
+    required this.radius,
+    required this.colors,
     this.strokeCapRound = false,
     this.backgroundColor = const Color(0xFFEEEEEE),
     this.totalAngle = 2 * pi,
-    this.value,
-  });
+    this.value = 0.0,
+  }) : super(key: key);
 
   /// 粗细
   final double strokeWidth;
@@ -24,9 +24,6 @@ class GradientCircularProgressIndicator extends StatelessWidget {
 
   /// 渐变色数组
   final List<Color> colors;
-
-  /// 渐变色的终止点，对应colors属性
-  final List<double> stops;
 
   /// 两端是否为圆角
   final bool strokeCapRound;
@@ -46,41 +43,39 @@ class GradientCircularProgressIndicator extends StatelessWidget {
     if (strokeCapRound) {
       _offset = asin(strokeWidth / (radius * 2 - strokeWidth));
     }
-    var _colors = colors;
+    List<Color> _colors = colors;
     if (_colors == null) {
-      Color color = Theme.of(context).accentColor;
-      _colors = [color, color];
+      final Color color = Theme.of(context).accentColor;
+      _colors = <Color>[color, color];
     }
 
     return Transform.rotate(
       angle: -pi / 2.0 - _offset,
       child: CustomPaint(
         size: Size.fromRadius(radius),
-        painter: _GradientCircluarProgressPainter(
-          strokeWidth: this.strokeWidth,
-          strokeCapRound: this.strokeCapRound,
-          backgroundColor: this.backgroundColor,
-          radius: this.radius,
-          total: this.totalAngle,
+        painter: _GradientCircularProgressPainter(
+          strokeWidth: strokeWidth,
+          strokeCapRound: strokeCapRound,
+          backgroundColor: backgroundColor,
+          radius: radius,
+          total: totalAngle,
           colors: _colors,
-          stops: this.stops,
-          value: this.value,
+          value: value,
         ),
       ),
     );
   }
 }
 
-class _GradientCircluarProgressPainter extends CustomPainter {
-  _GradientCircluarProgressPainter({
-    this.strokeWidth: 10.0,
-    this.strokeCapRound: false,
+class _GradientCircularProgressPainter extends CustomPainter {
+  const _GradientCircularProgressPainter({
+    this.strokeWidth = 10.0,
+    this.strokeCapRound = false,
     this.backgroundColor = const Color(0xFFEEEEEE),
-    this.radius,
+    required this.radius,
     this.total = 2 * pi,
-    @required this.colors,
-    this.stops,
-    this.value,
+    required this.colors,
+    this.value = 0.0,
   });
 
   final double strokeWidth;
@@ -90,25 +85,24 @@ class _GradientCircluarProgressPainter extends CustomPainter {
   final List<Color> colors;
   final double total;
   final double radius;
-  final List<double> stops;
 
   @override
   void paint(Canvas canvas, Size size) {
     if (radius != null) {
       size = Size.fromRadius(radius);
     }
-    double _offset = strokeWidth / 2.0;
-    double _value = (value ?? .0);
-    _value = _value.clamp(.0, 1.0) * total;
+    final double _offset = strokeWidth / 2.0;
+    double _value = value;
+    _value = _value.clamp(.0, 1.0).toDouble() * total;
     double _start = .0;
 
     if (strokeCapRound) {
       _start = asin(strokeWidth / (size.width - strokeWidth));
     }
 
-    Rect rect = Offset(_offset, _offset) & Size(size.width - strokeWidth, size.height - strokeWidth);
+    final Rect rect = Offset(_offset, _offset) & Size(size.width - strokeWidth, size.height - strokeWidth);
 
-    var paint = Paint()
+    final Paint paint = Paint()
       ..strokeCap = strokeCapRound ? StrokeCap.round : StrokeCap.butt
       ..style = PaintingStyle.stroke
       ..isAntiAlias = true
@@ -126,7 +120,6 @@ class _GradientCircluarProgressPainter extends CustomPainter {
         startAngle: .0,
         endAngle: _value,
         colors: colors,
-        stops: stops,
       ).createShader(rect);
 
       canvas.drawArc(rect, _start, _value, false, paint);
@@ -138,19 +131,21 @@ class _GradientCircluarProgressPainter extends CustomPainter {
 }
 
 class GradientCircularProgressRoute extends StatefulWidget {
+  const GradientCircularProgressRoute({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _GradientCircularProgressRouteState();
 }
 
 class _GradientCircularProgressRouteState extends State<GradientCircularProgressRoute> with TickerProviderStateMixin {
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this, duration: Duration(seconds: 3));
+    _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 3));
     bool isForward = true;
-    _animationController.addStatusListener((status) {
+    _animationController.addStatusListener((AnimationStatus status) {
       if (status == AnimationStatus.forward) {
         isForward = true;
       } else if (status == AnimationStatus.completed || status == AnimationStatus.dismissed) {
@@ -177,7 +172,7 @@ class _GradientCircularProgressRouteState extends State<GradientCircularProgress
               children: <Widget>[
                 AnimatedBuilder(
                   animation: _animationController,
-                  builder: (BuildContext context, Widget child) {
+                  builder: (BuildContext context, Widget? child) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       child: Column(
@@ -188,24 +183,24 @@ class _GradientCircularProgressRouteState extends State<GradientCircularProgress
                             children: <Widget>[
                               GradientCircularProgressIndicator(
                                 radius: 50.0,
-                                colors: [Colors.blue, Colors.blue],
+                                colors: const <Color>[Colors.blue, Colors.blue],
                                 strokeWidth: 3.0,
                                 value: _animationController.value,
                               ),
                               GradientCircularProgressIndicator(
-                                colors: [Colors.red, Colors.orange],
+                                colors: const <Color>[Colors.red, Colors.orange],
                                 radius: 50.0,
                                 strokeWidth: 3.0,
                                 value: _animationController.value,
                               ),
                               GradientCircularProgressIndicator(
-                                colors: [Colors.red, Colors.orange, Colors.red],
+                                colors: const <Color>[Colors.red, Colors.orange, Colors.red],
                                 radius: 50.0,
                                 strokeWidth: 5.0,
                                 value: _animationController.value,
                               ),
                               GradientCircularProgressIndicator(
-                                colors: [Colors.teal, Colors.cyan],
+                                colors: const <Color>[Colors.teal, Colors.cyan],
                                 radius: 50.0,
                                 strokeWidth: 5.0,
                                 strokeCapRound: true,
@@ -214,18 +209,18 @@ class _GradientCircularProgressRouteState extends State<GradientCircularProgress
                               TurnBox(
                                 turns: 1 / 8,
                                 child: GradientCircularProgressIndicator(
-                                    colors: [Colors.red, Colors.orange, Colors.red],
+                                    colors: const <Color>[Colors.red, Colors.orange, Colors.red],
                                     radius: 50.0,
                                     strokeWidth: 5.0,
                                     strokeCapRound: true,
-                                    backgroundColor: Colors.red[50],
+                                    backgroundColor: Colors.red[50] ?? Colors.red,
                                     totalAngle: 1.5 * pi,
                                     value: CurvedAnimation(parent: _animationController, curve: Curves.ease).value),
                               ),
                               RotatedBox(
                                 quarterTurns: 1,
                                 child: GradientCircularProgressIndicator(
-                                    colors: [Colors.blue[700], Colors.blue[200]],
+                                    colors: <Color>[Colors.blue[700] ?? Colors.blue, Colors.blue[200] ?? Colors.blue],
                                     radius: 50.0,
                                     strokeWidth: 3.0,
                                     strokeCapRound: true,
@@ -233,7 +228,14 @@ class _GradientCircularProgressRouteState extends State<GradientCircularProgress
                                     value: _animationController.value),
                               ),
                               GradientCircularProgressIndicator(
-                                colors: [Colors.red, Colors.amber, Colors.cyan, Colors.green[200], Colors.blue, Colors.red],
+                                colors: <Color>[
+                                  Colors.red,
+                                  Colors.amber,
+                                  Colors.cyan,
+                                  Colors.green[200] ?? Colors.green,
+                                  Colors.blue,
+                                  Colors.red
+                                ],
                                 radius: 50.0,
                                 strokeWidth: 5.0,
                                 strokeCapRound: true,
@@ -242,7 +244,7 @@ class _GradientCircularProgressRouteState extends State<GradientCircularProgress
                             ],
                           ),
                           GradientCircularProgressIndicator(
-                            colors: [Colors.blue[700], Colors.blue[200]],
+                            colors: <Color>[Colors.blue[700] ?? Colors.blue, Colors.blue[200] ?? Colors.blue],
                             radius: 100.0,
                             strokeWidth: 20.0,
                             value: _animationController.value,
@@ -250,7 +252,7 @@ class _GradientCircularProgressRouteState extends State<GradientCircularProgress
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: GradientCircularProgressIndicator(
-                              colors: [Colors.blue[700], Colors.blue[300]],
+                              colors: <Color>[Colors.blue[700] ?? Colors.blue, Colors.blue[300] ?? Colors.blue],
                               radius: 100.0,
                               strokeWidth: 20.0,
                               value: _animationController.value,
@@ -268,7 +270,7 @@ class _GradientCircularProgressRouteState extends State<GradientCircularProgress
                                   child: TurnBox(
                                     turns: .75,
                                     child: GradientCircularProgressIndicator(
-                                      colors: [Colors.teal, Colors.cyan[500]],
+                                      colors: <Color>[Colors.teal, Colors.cyan[500] ?? Colors.cyan],
                                       radius: 100.0,
                                       strokeWidth: 8.0,
                                       value: _animationController.value,
@@ -292,7 +294,7 @@ class _GradientCircularProgressRouteState extends State<GradientCircularProgress
                                   child: TurnBox(
                                     turns: .75,
                                     child: GradientCircularProgressIndicator(
-                                      colors: [Colors.teal, Colors.cyan[500]],
+                                      colors: <Color>[Colors.teal, Colors.cyan[500] ?? Colors.cyan],
                                       radius: 100.0,
                                       strokeWidth: 8.0,
                                       value: _animationController.value,
@@ -304,8 +306,8 @@ class _GradientCircularProgressRouteState extends State<GradientCircularProgress
                                 Padding(
                                   padding: const EdgeInsets.only(top: 10.0),
                                   child: Text(
-                                    "${(_animationController.value * 100).toInt()}%",
-                                    style: TextStyle(
+                                    '${(_animationController.value * 100).toInt()}%',
+                                    style: const TextStyle(
                                       fontSize: 25.0,
                                       color: Colors.blueGrey,
                                     ),
@@ -329,7 +331,7 @@ class _GradientCircularProgressRouteState extends State<GradientCircularProgress
 
   @override
   void dispose() {
-    _animationController?.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 }

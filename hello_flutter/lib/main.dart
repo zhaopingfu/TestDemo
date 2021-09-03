@@ -16,9 +16,11 @@ import 'package:hello_flutter/sample/turn_box_sample.dart';
 import 'package:hello_flutter/turn_box.dart';
 import 'package:hello_flutter/text_field.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,13 +28,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -60,143 +62,141 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
+            const Text('You have pushed the button this many times:'),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return TextFieldDemo();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const TextFieldDemo();
                 }));
               },
-              child: Text("跳转文本demo"),
+              child: const Text('跳转文本demo'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return TurnBoxRoute();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const TurnBoxRoute();
                 }));
               },
-              child: Text("TurnBox"),
+              child: const Text('TurnBox'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return CustomPaintRoute();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const CustomPaintRoute();
                 }));
               },
-              child: Text("CustomPainter"),
+              child: const Text('CustomPainter'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return GradientCircularProgressRoute();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const GradientCircularProgressRoute();
                 }));
               },
-              child: Text("GradientCircularProgressIndicator"),
+              child: const Text('GradientCircularProgressIndicator'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return StudyListener();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const StudyListener();
                 }));
               },
-              child: Text("study listener"),
+              child: const Text('study listener'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return StudyGestureDetectorRoute();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const StudyGestureDetectorRoute();
                 }));
               },
-              child: Text("study GestureDetector"),
+              child: const Text('study GestureDetector'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return StudyDrag();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const StudyDrag();
                 }));
               },
-              child: Text("study Drag"),
+              child: const Text('study Drag'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return StudyScaleRoute();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const StudyScaleRoute();
                 }));
               },
-              child: Text("study scale"),
+              child: const Text('study scale'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return StudyGestureRecognizer();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const StudyGestureRecognizer();
                 }));
               },
-              child: Text("study gesture recognizer"),
+              child: const Text('study gesture recognizer'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return BothDirectionTestRoute();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const BothDirectionTestRoute();
                 }));
               },
-              child: Text("Both Direction Test"),
+              child: const Text('Both Direction Test'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return GestureConflictTestRoute();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const GestureConflictTestRoute();
                 }));
               },
-              child: Text("Gesture Conflict Test"),
+              child: const Text('Gesture Conflict Test'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return EventBusA();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const EventBusA();
                 }));
               },
-              child: Text("Event bus"),
+              child: const Text('Event bus'),
             ),
             Container(
               width: double.infinity,
               height: 50,
               color: Colors.red,
             ),
-            RaisedButton(
-              child: Text('text field sample'),
+            ElevatedButton(
+              child: const Text('text field sample'),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return TextFieldSampleRoute();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const TextFieldSampleRoute();
                 }));
               },
             ),
-            RaisedButton(
-              child: Text('turn box sample'),
+            ElevatedButton(
+              child: const Text('turn box sample'),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return TurnBoxDemoRoute();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const TurnBoxDemoRoute();
                 }));
               },
             ),
-            RaisedButton(
-              child: Text('custom paint sample'),
+            ElevatedButton(
+              child: const Text('custom paint sample'),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return CustomPaintSampleRoute();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const CustomPaintSampleRoute();
                 }));
               },
             ),
-            RaisedButton(
-              child: Text('gradient circular progress sample'),
+            ElevatedButton(
+              child: const Text('gradient circular progress sample'),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return GradientCircularProgressSampleRoute();
+                Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (_) {
+                  return const GradientCircularProgressSampleRoute();
                 }));
               },
             ),
@@ -206,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

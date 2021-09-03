@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BothDirectionTestRoute extends StatefulWidget {
+  const BothDirectionTestRoute({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _BothDirectionTestRouteState();
 }
@@ -14,16 +16,16 @@ class _BothDirectionTestRouteState extends State<BothDirectionTestRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: Stack(
-            children: [
+            children: <Widget>[
               Positioned(
                 left: _left,
                 top: _top,
                 child: GestureDetector(
-                  child: CircleAvatar(child: Text('A')),
+                  child: const CircleAvatar(child: Text('A')),
                   onHorizontalDragUpdate: (DragUpdateDetails details) => setState(() => _left += details.delta.dx),
                   onVerticalDragUpdate: (DragUpdateDetails details) => setState(() => _top += details.delta.dy),
                 ),
